@@ -5,7 +5,7 @@
     <form method="POST" action="{{ route('login') }}">
         @csrf
         <div class="form-group">
-            <label for="email">E-Mail Address</label>
+            <label for="email">Email</label>
             <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required>
         </div>
         <div class="form-group">
@@ -17,14 +17,17 @@
             <label class="form-check-label" for="remember">Remember Me</label>
         </div>
         <button type="submit" class="btn btn-primary">Login</button>
+        <div>
+            Don't have any account? <a href="{{ route('register') }}">Click here</a> to register.
+        </div>
     </form>
 </div>
 
-@if(Auth::check())
+{{-- @if(Auth::check())
     <form action="{{ route('logout') }}" method="POST">
         @csrf
         <button type="submit">Logout</button>
     </form>
-@endif
+@endif --}}
 
 @endsection

@@ -22,17 +22,23 @@ class RegisterController extends Controller
     }
 
     public function register(Request $request){
-        $this->validator($request->all())->validate();
-        event(new Registered($user = $this->create($request->all())));
-        Auth::login($user);
-        return redirect(route('login'));
+        $validator = $this->validator($request->all());
+        if ($validator->fails()) {
+            return back()->with('error','Unsuccessful');
+        }
+        $user = $this->create($request->all());
+        if ($user) {
+            return redirect(route('login'))->with('success', 'Registration was successful');
+        } else {
+            return back()->with('error', 'Registration was unsuccessful');
+        }    
     }
 
     protected function validator(array $data){
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'password' => ['required', 'string', 'min:1', 'confirmed'],
         ]);
     }
 
@@ -40,6 +46,7 @@ class RegisterController extends Controller
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
+            'role' => $data['role'],
             'password' => Hash::make($data['password']),
         ]);
     }

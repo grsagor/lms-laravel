@@ -18,7 +18,7 @@ class LoginController extends Controller
             'password' => ['required'],
         ]);
         if (Auth::attempt($credentials, $request->remember)) {
-            return redirect()->intended('/admin');
+            return redirect()->intended('/');
         }
         return redirect()->route('login')->with('error', 'Invalid credentials.');
     }
