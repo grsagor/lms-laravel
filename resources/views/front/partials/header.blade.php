@@ -67,15 +67,15 @@
                     <input type="hidden" name="role" value="{{ Auth::user()->role }}">
                     @if (Auth::user() && Auth::user()->role == 'teacher')
                         <div class="mb-3">
-                            <label for="course_name" class="form-label">Course Name</label>
-                            <input type="text" class="form-control" id="course_name" name="course_name">
+                            <label for="name" class="form-label">Course Name</label>
+                            <input type="text" class="form-control" id="name" name="name">
                         </div>
                     @endif
 
                     @if (Auth::user() && Auth::user()->role == 'student')
                         <div class="mb-3">
-                            <label for="course_code" class="form-label">Course name</label>
-                            <input type="text" class="form-control" id="course_code" name="course_code">
+                            <label for="code" class="form-label">Course Code</label>
+                            <input type="text" class="form-control" id="code" name="code">
                         </div>
                     @endif
                 </div>

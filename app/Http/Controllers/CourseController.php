@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Course;
+use App\Models\SCR;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 
@@ -12,7 +13,12 @@ class CourseController extends Controller
 {
     public function index()
     {
-        return view('front.pages.courses.courses');
+        $courses = Course::all();
+
+        $data = [
+            'courses' => $courses,
+        ];
+        return view('front.pages.courses.courses', $data);
     }
 
     public function createCourse(Request $request)
@@ -20,8 +26,8 @@ class CourseController extends Controller
         if ($request->role == 'teacher') {
             $course = new Course();
 
-            $course->course_code = Str::random(3) . str_pad(rand(0, 999), 3, '0', STR_PAD_LEFT);
-            $course->course_name = $request->course_name;
+            $course->code = Str::random(3) . str_pad(rand(0, 999), 3, '0', STR_PAD_LEFT);
+            $course->name = $request->name;
             $course->teacher_id = Auth::user()->id;
 
             $result = $course->save();
@@ -33,17 +39,28 @@ class CourseController extends Controller
             }
         }
         if ($request->role == 'student') {
-            $course = Course::where('course_code',$request->course_code)->first();
+            $student = new SCR();
 
+            $student->student_id = Auth::user()->id;
+            $student->course_id = Course::where('code', $request->code)->first()->id;
 
-
-            $result = $course->save();
+            $result = $student->save();
 
             if ($result) {
-                return back()->with('success', 'Course created.');
+                return back()->with('success', 'Joined');
             } else {
                 return back()->with('error', 'Unsuccessful');
             }
         }
+    }
+
+    public function singleCoursePage($id) {
+        $course = Course::find($id);
+
+        $data = [
+            'course' => $course,
+        ];
+
+        return view('front.pages.courses.single_course', $data);
     }
 }

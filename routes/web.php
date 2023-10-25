@@ -1,7 +1,10 @@
 <?php
 
+use App\Http\Controllers\AssignmentController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\FrontendController;
+use App\Http\Controllers\PostController;
+use App\Http\Controllers\QuizController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\LoginController;
@@ -16,11 +19,35 @@ use App\Http\Controllers\Auth\LoginController;
 |
 */
 
-Route::get('/', [FrontendController::class, 'home'])->name('home');
+Route::middleware(['auth'])->group(function() {
+    Route::get('/', [FrontendController::class, 'home'])->name('home');
 
-Route::controller(CourseController::class)->group(function() {
-    Route::get('/courses', 'index')->name('front.courses');
-    Route::post('/courses', 'createCourse')->name('create.course');
+    Route::controller(CourseController::class)->group(function() {
+        Route::get('/courses', 'index')->name('front.courses');
+        Route::post('/courses', 'createCourse')->name('create.course');
+        Route::get('/course/{id}', 'singleCoursePage')->name('single.course.page');
+    });
+
+    Route::controller(PostController::class)->group(function() {
+        Route::post('/post', 'storePost')->name('store.post');
+    });
+
+    Route::controller(AssignmentController::class)->group(function() {
+        Route::get('/create-assignment/{course_id}', 'createAssignment')->name('assignment.create.page');
+        Route::post('/store-create-assignment', 'storeCreateAssignment')->name('store.create.assignment');
+    });
+
+    Route::controller(QuizController::class)->group(function() {
+        Route::get('/create-quiz/{course_id}', 'createQuiz')->name('quiz.create.page');
+        // Route::post('/store-create-assignment', 'storeCreateAssignment')->name('store.create.assignment');
+
+        Route::get('/add-question', 'addQuestion');
+        Route::get('/add-option', 'addOption');
+        
+        Route::get('/remove-question', 'removeQuestion');
+        Route::get('/remove-option', 'removeOption');
+
+    });
 });
 
 
