@@ -16,9 +16,8 @@ class QuizController extends Controller
 
     public function addQuestion(Request $request)
     {
-        $number_of_question = $request->number_of_question;
         $data = [
-            'number_of_question' => $number_of_question
+            'q_counter' => $request->q_counter
         ];
         $html = view('front.pages.quiz.question-template', $data)->render();
         $response = [
@@ -29,8 +28,15 @@ class QuizController extends Controller
 
     public function addOption(Request $request)
     {
-        $questionId = $request->input('questionId');
-        return view('front.pages.quiz.option-template', compact('questionId'));
+        $data = [
+            'q_counter' => $request->q_counter,
+            'o_couonter' => $request->o_couonter,
+        ];
+        $html = view('front.pages.quiz.option-template', $data)->render();
+        $response = [
+            'html' => $html
+        ];
+        return response()->json($response);
     }
 
     public function removeQuestion(Request $request)

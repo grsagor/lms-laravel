@@ -41,8 +41,8 @@ Route::middleware(['auth'])->group(function() {
         Route::get('/create-quiz/{course_id}', 'createQuiz')->name('quiz.create.page');
         // Route::post('/store-create-assignment', 'storeCreateAssignment')->name('store.create.assignment');
 
-        Route::get('/add-question', 'addQuestion');
-        Route::get('/add-option', 'addOption');
+        Route::get('/quiz/add-question', 'addQuestion');
+        Route::get('/quiz/add-option', 'addOption');
         
         Route::get('/remove-question', 'removeQuestion');
         Route::get('/remove-option', 'removeOption');

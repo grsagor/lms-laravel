@@ -1,15 +1,21 @@
-<div id="question_container-{{$number_of_question}}" class="border border-1 p-3">
-    <input type="hidden" name="q{{$number_of_question}}_option_no" value="1" id="q{{$number_of_question}}_option_no">
+<div id="question_container--{{ $q_counter }}" class="mb-3">
+    <input type="hidden" id="option__counter--1" value="1">
     <div class="mb-3">
-        <label for="question-{{$number_of_question}}" class="form-label">Question</label>
-        <input type="text" class="form-control" id="question-{{$number_of_question}}">
+        <label for="question-1" class="form-label">Question</label>
+        <div class="d-flex">
+            <input type="text" class="form-control" id="question-1">
+            <button data-qno="{{$q_counter}}" class="remove__question--btn" type="button">Remove Question</button>
+        </div>
     </div>
-    <div id="option_container-1">
-        <div class="mb-3 row" id="option-{{$number_of_question}}-1">
-            <div class="col-4"><label for="input-{{$number_of_question}}-1" class="form-label">Option</label></div>
-            <div class="col-8">
-                <input type="text" class="form-control" id="input-{{$number_of_question}}-1" name="option[{{$number_of_question}}][]">
+    <div id="main_option_container--{{ $q_counter }}">
+        <div id="option_container--1" class="mb-3">
+            <label for="option-1-1" class="form-label">Option</label>
+            <div class="d-flex">
+                <input type="text" class="form-control" id="option-1-1">
+                <button data-qno="{{ $q_counter }}" data-num="1" class="remove__option--btn"
+                    type="button">Remove</button>
             </div>
         </div>
     </div>
+    <button data-qno="{{ $q_counter }}" data-num="1" class="add__option--btn" type="button">Add Option</button>
 </div>
