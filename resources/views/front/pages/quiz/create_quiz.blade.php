@@ -101,7 +101,7 @@
             /* Remove Question */
             $(document).on('click', '.remove__question--btn', function() {
                 var qCounter = $(this).data('qno');
-                $(`#question_container--${qCounter}`).empty();
+                $(`#question_container--${qCounter}`).empty();            
             });
         });
     </script>

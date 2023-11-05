@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 25, 2023 at 06:40 PM
+-- Generation Time: Nov 05, 2023 at 08:20 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.1.17
 
@@ -42,7 +42,8 @@ CREATE TABLE `all_posts` (
 
 INSERT INTO `all_posts` (`id`, `post_id`, `course_id`, `post_type`, `created_at`, `updated_at`) VALUES
 ('6537e32f75651-stlout-82022574347992197', '6537e32f72989-stlout-55553143432379213', '6537484e9f56d-stlout-40657266389260616', 'normal', '2023-10-24 15:30:55', '2023-10-24 15:30:55'),
-('6537ed737f6f4-stlout-72232086538164197', '6537ed737ed7b-stlout-82804592575662684', '653746624ea2b-stlout-12896205320286654', 'assignment', '2023-10-24 16:14:43', '2023-10-24 16:14:43');
+('6537ed737f6f4-stlout-72232086538164197', '6537ed737ed7b-stlout-82804592575662684', '653746624ea2b-stlout-12896205320286654', 'assignment', '2023-10-24 16:14:43', '2023-10-24 16:14:43'),
+('6539588c7d90d-stlout-23751450834589994', '6539588c77d6a-stlout-62946251838315479', '653746624ea2b-stlout-12896205320286654', 'assignment', '2023-10-25 18:03:56', '2023-10-25 18:03:56');
 
 -- --------------------------------------------------------
 
@@ -67,7 +68,8 @@ CREATE TABLE `assignments` (
 --
 
 INSERT INTO `assignments` (`id`, `user_id`, `course_id`, `title`, `files`, `description`, `deadline`, `created_at`, `updated_at`) VALUES
-('6537ed737ed7b-stlout-82804592575662684', '4', '653746624ea2b-stlout-12896205320286654', 'asdfas', '[\"\\/upload\\/Zulfeqar Haider Khan- CV.pdf\"]', '<ul><li>dfasdfasdf</li></ul>', '2023-10-25 16:12:00', '2023-10-24 16:14:43', '2023-10-24 16:14:43');
+('6537ed737ed7b-stlout-82804592575662684', '4', '653746624ea2b-stlout-12896205320286654', 'asdfas', '[\"\\/upload\\/Zulfeqar Haider Khan- CV.pdf\"]', '<ul><li>dfasdfasdf</li></ul>', '2023-10-25 16:12:00', '2023-10-24 16:14:43', '2023-10-24 16:14:43'),
+('6539588c77d6a-stlout-62946251838315479', '4', '653746624ea2b-stlout-12896205320286654', NULL, '[]', NULL, '2023-10-25 18:03:56', '2023-10-25 18:03:56', '2023-10-25 18:03:56');
 
 -- --------------------------------------------------------
 
