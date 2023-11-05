@@ -18,6 +18,6 @@ class FileHelper
                 $fileUrls[] = '/upload/' . $file_name;
             }
         }
-        return $fileUrls;
+        return json_encode($fileUrls);
     }
 }

@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Quiz;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
+use App\Models\AllPost;
+use Illuminate\Support\Facades\Auth;
 
 class QuizController extends Controller
 {
@@ -12,6 +16,39 @@ class QuizController extends Controller
             'course_id' => $course_id
         ];
         return view('front.pages.quiz.create_quiz', $data);
+    }
+
+    public function storeQuiz(Request $request) {
+        $quizzes = [];
+
+        foreach ($request->question as $index => $value) {
+            $quiz = [
+                'question' => $value,
+                'option' => $request->option[$index + 1],
+                'right_ans' => $request->right_ans[$index],
+            ];
+            $quizzes[] = $quiz;        
+        }
+
+        $quiz = new Quiz();
+        $quiz->user_id = Auth::user()->id;
+        $quiz->title = $request->title;
+        $quiz->description = $request->description;
+        $quiz->quizzes = json_encode($quizzes);
+        $quiz->deadline = Carbon::parse($request->deadline)->format('Y-m-d H:i:s');
+
+        $quiz->save();
+
+        $all_post = new AllPost();
+
+        $all_post->post_id = $quiz->id;
+        $all_post->user_id = Auth::user()->id;
+        $all_post->course_id = $request->course_id;
+        $all_post->post_type = 'quiz';
+
+        $all_post->save();
+
+        return back()->with('success','Quiz saved successfully');
     }
 
     public function addQuestion(Request $request)

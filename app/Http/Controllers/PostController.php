@@ -20,17 +20,16 @@ class PostController extends Controller
         $post->post = $request->post;
         $post->posted_date = Carbon::now('Asia/Dhaka')->format('d F, Y');
         $post->posted_time = Carbon::now('Asia/Dhaka')->format('h:i A');
-        $post->post_type = 'normal';
         
-        $files = [];
+        $post->files = [];
         if ($request->file('files')) {
-            $files = FileHelper::saveFiles($request->file('files'));
+            $post->files = FileHelper::saveFiles($request->file('files'));
         }
-        $post->files = json_encode($files);
 
         $post->save();
 
         $all_post->post_id = $post->id;
+        $all_post->user_id = Auth::user()->id;
         $all_post->course_id = $request->course_id;
         $all_post->post_type = 'normal';
 

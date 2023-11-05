@@ -567,3 +567,9 @@ h6 {
     color: #fff;
     text-decoration: none;
   }
+
+  /* Post Styles */
+  .post__top--img {
+    width: 40px;
+    aspect-ratio: 1/1;
+  }

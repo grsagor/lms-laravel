@@ -27,20 +27,44 @@ class AssignmentController extends Controller
         $assignment->description = $request->description;
         $assignment->deadline = Carbon::parse($request->deadline)->format('Y-m-d H:i:s');
         
-        $files = [];
+        $assignment->files = [];
         if ($request->file('files')) {
-            $files = FileHelper::saveFiles($request->file('files'));
+            $assignment->files = FileHelper::saveFiles($request->file('files'));
         }
-        $assignment->files = json_encode($files);
-
         $assignment->save();
 
         $all_post->post_id = $assignment->id;
+        $all_post->user_id = Auth::user()->id;
         $all_post->course_id = $request->course_id;
         $all_post->post_type = 'assignment';
 
         $all_post->save();
 
         return back()->with('success','Assignment saved successfully');
+    }
+
+    public function assignimentSubmitPage($id) {
+        $post = AllPost::where('id',$id)->with(['assignment', 'user'])->first();
+        $original_files = json_decode($post->assignment->files);
+
+        $files = [];
+
+        foreach ($original_files as $file) {
+            $filePath = $file;
+            $filename = pathinfo($filePath, PATHINFO_BASENAME);
+            $extension = pathinfo($filename, PATHINFO_EXTENSION);
+
+            $files[] = [
+                'path' => $file,
+                'name' => $filename,
+                'extension' => $extension
+            ];
+        }
+
+        $data = [
+            'post' => $post,
+            'files' => $files
+        ];
+        return view('front.pages.assignment.assignment_submit_page', $data);
     }
 }

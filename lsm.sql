@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 05, 2023 at 08:20 AM
+-- Generation Time: Nov 05, 2023 at 09:36 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.1.17
 
@@ -29,6 +29,7 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `all_posts` (
   `id` varchar(255) NOT NULL,
+  `user_id` varchar(255) DEFAULT NULL,
   `post_id` varchar(255) DEFAULT NULL,
   `course_id` varchar(255) DEFAULT NULL,
   `post_type` varchar(255) DEFAULT NULL,
@@ -40,10 +41,11 @@ CREATE TABLE `all_posts` (
 -- Dumping data for table `all_posts`
 --
 
-INSERT INTO `all_posts` (`id`, `post_id`, `course_id`, `post_type`, `created_at`, `updated_at`) VALUES
-('6537e32f75651-stlout-82022574347992197', '6537e32f72989-stlout-55553143432379213', '6537484e9f56d-stlout-40657266389260616', 'normal', '2023-10-24 15:30:55', '2023-10-24 15:30:55'),
-('6537ed737f6f4-stlout-72232086538164197', '6537ed737ed7b-stlout-82804592575662684', '653746624ea2b-stlout-12896205320286654', 'assignment', '2023-10-24 16:14:43', '2023-10-24 16:14:43'),
-('6539588c7d90d-stlout-23751450834589994', '6539588c77d6a-stlout-62946251838315479', '653746624ea2b-stlout-12896205320286654', 'assignment', '2023-10-25 18:03:56', '2023-10-25 18:03:56');
+INSERT INTO `all_posts` (`id`, `user_id`, `post_id`, `course_id`, `post_type`, `created_at`, `updated_at`) VALUES
+('6537ed737f6f4-stlout-72232086538164197', '4', '6537ed737ed7b-stlout-82804592575662684', '653746624ea2b-stlout-12896205320286654', 'assignment', '2023-10-24 16:14:43', '2023-10-24 16:14:43'),
+('6539588c7d90d-stlout-23751450834589994', '4', '6539588c77d6a-stlout-62946251838315479', '653746624ea2b-stlout-12896205320286654', 'assignment', '2023-10-25 18:03:56', '2023-10-25 18:03:56'),
+('6547e0b6526f1-stlout-72031127419191086', '4', '6547e0b64fbc0-stlout-94149479298431346', '653746624ea2b-stlout-12896205320286654', 'quiz', '2023-11-05 18:36:38', '2023-11-05 18:36:38'),
+('6547e1856a605-stlout-98373229748817853', '4', '6547e1856984e-stlout-82334645585038009', '653746624ea2b-stlout-12896205320286654', 'normal', '2023-11-05 18:40:05', '2023-11-05 18:40:05');
 
 -- --------------------------------------------------------
 
@@ -184,7 +186,7 @@ CREATE TABLE `posts` (
 --
 
 INSERT INTO `posts` (`id`, `user_id`, `course_id`, `post`, `posted_date`, `posted_time`, `post_type`, `files`, `created_at`, `updated_at`) VALUES
-('6537e32f72989-stlout-55553143432379213', '65350e3b0efd2-stlout-21302338425649725', '6537484e9f56d-stlout-40657266389260616', '<p>asdfasdfasassdfasdf</p>', '24 October, 2023', '09:30 PM', 'normal', '[]', '2023-10-24 15:30:55', '2023-10-24 15:30:55');
+('6547e1856984e-stlout-82334645585038009', '4', '653746624ea2b-stlout-12896205320286654', 'Est explicabo. Dolor.f', '06 November, 2023', '12:40 AM', 'normal', '[]', '2023-11-05 18:40:05', '2023-11-05 18:40:05');
 
 -- --------------------------------------------------------
 
@@ -194,12 +196,21 @@ INSERT INTO `posts` (`id`, `user_id`, `course_id`, `post`, `posted_date`, `poste
 
 CREATE TABLE `quizzes` (
   `id` varchar(255) NOT NULL,
-  `post_id` varchar(255) DEFAULT NULL,
-  `questions` text DEFAULT NULL,
-  `answer` text DEFAULT NULL,
+  `user_id` varchar(255) DEFAULT NULL,
+  `title` text DEFAULT NULL,
+  `description` longtext DEFAULT NULL,
+  `deadline` timestamp NULL DEFAULT NULL,
+  `quizzes` longtext DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `quizzes`
+--
+
+INSERT INTO `quizzes` (`id`, `user_id`, `title`, `description`, `deadline`, `quizzes`, `created_at`, `updated_at`) VALUES
+('6547e0b64fbc0-stlout-94149479298431346', '4', 'Perspiciatis velit', NULL, '2023-10-02 16:25:00', '[{\"question\":\"Excepturi et autem q\",\"option\":[\"Unde sapiente quam e\",\"Qui dolor perspiciat\",\"Ipsum adipisicing te\",\"Iure pariatur Commo\"],\"right_ans\":\"Qui dolor perspiciat\"},{\"question\":\"Nisi expedita nobis\",\"option\":[\"Et sunt et mollitia\",\"Incididunt est quasi\",\"Nemo repellendus Eo\",\"Vel quam tempor fugi\"],\"right_ans\":\"Incididunt est quasi\"}]', '2023-11-05 18:36:38', '2023-11-05 18:36:38');
 
 -- --------------------------------------------------------
 
@@ -210,10 +221,17 @@ CREATE TABLE `quizzes` (
 CREATE TABLE `scr` (
   `id` varchar(255) NOT NULL,
   `student_id` varchar(255) NOT NULL,
-  `course_code` varchar(255) NOT NULL,
+  `course_id` varchar(255) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `scr`
+--
+
+INSERT INTO `scr` (`id`, `student_id`, `course_id`, `created_at`, `updated_at`) VALUES
+('6547d64267c49-stlout-45569832707172966', '65350e1eb853d-stlout-10684209987447268', '653746624ea2b-stlout-12896205320286654', '2023-11-05 17:52:02', '2023-11-05 17:52:02');
 
 -- --------------------------------------------------------
 

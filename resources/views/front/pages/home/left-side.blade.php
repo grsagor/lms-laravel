@@ -4,11 +4,7 @@
 <h6 class="text-center mt-2">Nusrat Jahan</h6>
 
 <div>
-    <button class="w-100 border-0 btn text-start">AI Artifitial Intelligent</button>
-    <button class="w-100 border-0 btn text-start">AI Artifitial Intelligent</button>
-    <button class="w-100 border-0 btn text-start">AI Artifitial Intelligent</button>
-    <button class="w-100 border-0 btn text-start">AI Artifitial Intelligent</button>
-    <button class="w-100 border-0 btn text-start">AI Artifitial Intelligent</button>
-    <button class="w-100 border-0 btn text-start">AI Artifitial Intelligent</button>
-    <button class="w-100 border-0 btn text-start">AI Artifitial Intelligent</button>
+    @foreach ($data["courses"] as $course)
+        <a class="w-100 border-0 btn text-start" href="{{ route('single.course.page', ['id' => $course->id]) }}">{{ $course->name }}</a>
+    @endforeach
 </div>

@@ -29,17 +29,20 @@ Route::middleware(['auth'])->group(function() {
     });
 
     Route::controller(PostController::class)->group(function() {
-        Route::post('/post', 'storePost')->name('store.post');
+        Route::post('/post', 'storePost')->name('store.normal.post');
     });
 
     Route::controller(AssignmentController::class)->group(function() {
         Route::get('/create-assignment/{course_id}', 'createAssignment')->name('assignment.create.page');
         Route::post('/store-create-assignment', 'storeCreateAssignment')->name('store.create.assignment');
+
+        Route::get('assignment/submit/{id}', 'assignimentSubmitPage')->name('assignment.submit.page');
+        Route::post('assignment/submit', 'assignimentSubmitStore')->name('submit.assignment.store');
     });
 
     Route::controller(QuizController::class)->group(function() {
         Route::get('/create-quiz/{course_id}', 'createQuiz')->name('quiz.create.page');
-        // Route::post('/store-create-assignment', 'storeCreateAssignment')->name('store.create.assignment');
+        Route::post('/store-quiz', 'storeQuiz')->name('store.quiz.question');
 
         Route::get('/quiz/add-question', 'addQuestion');
         Route::get('/quiz/add-option', 'addOption');
