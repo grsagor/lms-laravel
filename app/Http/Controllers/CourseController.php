@@ -6,6 +6,7 @@ use App\Models\Course;
 use App\Models\SCR;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
+use App\Models\AllPost;
 
 use Illuminate\Http\Request;
 
@@ -57,8 +58,11 @@ class CourseController extends Controller
     public function singleCoursePage($id) {
         $course = Course::find($id);
 
+        $posts = AllPost::where('course_id',$id)->with(['post', 'assignment', 'quiz', 'user'])->get();
+
         $data = [
             'course' => $course,
+            'posts' => $posts,
         ];
 
         return view('front.pages.courses.single_course', $data);
