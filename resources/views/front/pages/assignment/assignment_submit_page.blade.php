@@ -11,9 +11,10 @@
         <div>
             <form action="{{ route('submit.assignment.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
+                <input type="hidden" name="assignment_id" value="{{ $post->assignment->id }}">
                 <div class="mb-3">
-                    <label for="description" class="form-label">Description</label>
-                    <textarea type="text" class="form-control richtext" id="description" name="description"></textarea>
+                    <label for="comments" class="form-label">Comments</label>
+                    <textarea type="text" class="form-control richtext" id="comments" name="comments"></textarea>
                 </div>
                 <div class="mb-3 d-flex">
                     <input type="file" class="d-none" name="files" id="files" onchange="previewFiles()" multiple>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Quiz;
+use App\Models\QuizSubmission;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use App\Models\AllPost;
@@ -49,6 +50,35 @@ class QuizController extends Controller
         $all_post->save();
 
         return back()->with('success','Quiz saved successfully');
+    }
+
+    public function quizSubmitPage($id) {
+        $post = AllPost::where('id',$id)->with(['quiz', 'user'])->first();
+        $quiz = $post->quiz;
+        $quiz->quizzes = json_decode($quiz->quizzes);
+        $data = [
+            'quiz' => $quiz
+        ];
+        return view('front.pages.quiz.quiz_submit_page', $data);
+    }
+
+    public function quizSubmitStore(Request $request) {
+        $quiz = Quiz::where('id',$request->quiz_id)->first();
+        $quizzes = json_decode($quiz->quizzes);
+        $marks = 0;
+        foreach ($quizzes as $key => $value) {
+            $value->answer = $request->{"answer_" . $key};
+            if($value->answer == $value->right_ans){$marks++;}
+        }
+        $quiz_submit = new QuizSubmission();
+        
+        $quiz_submit->student_id = Auth::user()->id;
+        $quiz_submit->quiz_id = $request->quiz_id;
+        $quiz_submit->answers = $quizzes;
+        $quiz_submit->marks = $marks;
+        $quiz_submit->save();
+
+        return back()->with('success','Quiz submitted successfully');
     }
 
     public function addQuestion(Request $request)

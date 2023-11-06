@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Helpers\FileHelper;
 use App\Models\AllPost;
 use App\Models\Assignment;
+use App\Models\AssignmentSubmission;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Carbon;
@@ -66,5 +67,22 @@ class AssignmentController extends Controller
             'files' => $files
         ];
         return view('front.pages.assignment.assignment_submit_page', $data);
+    }
+
+    public function assignimentSubmitStore(Request $request) {
+        $assignment = new AssignmentSubmission();
+
+        $assignment->student_id = Auth::user()->id;
+        $assignment->assignment_id = $request->assignment_id;
+        $assignment->comments = $request->comments;
+
+        $assignment->files = [];
+        if ($request->file('files')) {
+            $assignment->files = FileHelper::saveFiles($request->file('files'));
+        }
+
+        $assignment->save();
+
+        return back()->with('success', 'Assignment submitted successfully.');
     }
 }

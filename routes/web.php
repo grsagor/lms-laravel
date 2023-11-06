@@ -46,10 +46,9 @@ Route::middleware(['auth'])->group(function() {
 
         Route::get('/quiz/add-question', 'addQuestion');
         Route::get('/quiz/add-option', 'addOption');
-        
-        Route::get('/remove-question', 'removeQuestion');
-        Route::get('/remove-option', 'removeOption');
 
+        Route::get('quiz/submit/{id}', 'quizSubmitPage')->name('quiz.submit.page');
+        Route::post('quiz/submit', 'quizSubmitStore')->name('submit.quiz.store');
     });
 });
 

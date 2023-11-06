@@ -17,7 +17,7 @@
             @endif
             @if ($post->post_type == 'quiz')
                 <h6>{{ $post->quiz->title }}</h6>
-                <a href="">Details</a>
+                <a href="{{ route('quiz.submit.page', ['id' => $post->id]) }}">Details</a>
             @endif
         </div>
         <div class="post--down d-flex justify-content-center">
