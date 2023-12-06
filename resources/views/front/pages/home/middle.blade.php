@@ -13,11 +13,11 @@
             @endif
             @if ($post->post_type == 'assignment')
                 <h6>{{ $post->assignment->title }}</h6>
-                <a href="{{ route('assignment.submit.page', ['id' => $post->id]) }}">Details</a>
+                <a href="{{ route('assignment.submit.page', ['id' => $post->id]) }}">Assignment Details</a>
             @endif
             @if ($post->post_type == 'quiz')
                 <h6>{{ $post->quiz->title }}</h6>
-                <a href="{{ route('quiz.submit.page', ['id' => $post->id]) }}">Details</a>
+                <a href="{{ route('quiz.submit.page', ['id' => $post->id]) }}">Quiz Details</a>
             @endif
         </div>
         <div class="post--down d-flex justify-content-center">

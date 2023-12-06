@@ -55,9 +55,18 @@ class QuizController extends Controller
     public function quizSubmitPage($id) {
         $post = AllPost::where('id',$id)->with(['quiz', 'user'])->first();
         $quiz = $post->quiz;
+        $quiz_submitted = QuizSubmission::where([['quiz_id', $quiz->id], ['student_id', Auth::user()->id]])->first();
         $quiz->quizzes = json_decode($quiz->quizzes);
+        $answered = false;
+        if ($quiz_submitted) {
+            $quiz->quizzes = json_decode($quiz_submitted->answers);
+            $quiz->marks = $quiz_submitted->marks;
+            $answered = true;
+        }
+        // return $quiz_submitted;
         $data = [
-            'quiz' => $quiz
+            'quiz' => $quiz,
+            'answered' => $answered
         ];
         return view('front.pages.quiz.quiz_submit_page', $data);
     }
@@ -74,7 +83,7 @@ class QuizController extends Controller
         
         $quiz_submit->student_id = Auth::user()->id;
         $quiz_submit->quiz_id = $request->quiz_id;
-        $quiz_submit->answers = $quizzes;
+        $quiz_submit->answers = json_encode($quizzes);
         $quiz_submit->marks = $marks;
         $quiz_submit->save();
 

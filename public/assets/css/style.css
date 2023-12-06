@@ -2,6 +2,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500;600;700&display=swap');
 
+:root {
+  
+}
+
 body {
     font-family: "Open Sans", sans-serif;
     color: #444444;
@@ -572,4 +576,10 @@ h6 {
   .post__top--img {
     width: 40px;
     aspect-ratio: 1/1;
+  }
+  .wrong-answer {
+    color: red;
+  }
+  .right-answer {
+    color: green;
   }

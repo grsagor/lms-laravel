@@ -13,14 +13,15 @@
             <h6>Q{{ $i + 1 }}: {{ $item->question }}</h6>
             <ul class="row">
                 @foreach ($item->option as $ii => $single_option)
-                    <li class="col-12 col-md-6">
-                        <input type="radio" name="answer_{{ $i }}" id="aswer_{{ $i }}_{{ $ii }}" required value="{{ $single_option }}"> <label for="aswer_{{ $i }}_{{ $ii }}">{{ $single_option }}</label>
+                    <li class="col-12 col-md-6 {{ $answered && $item->answer == $single_option && $item->right_ans != $single_option ? 'wrong-answer' : '' }} {{ $answered && $item->right_ans == $single_option ? 'right-answer' : '' }}">
+                        <input {{ $answered ? 'disabled' : '' }} {{ $answered && ($item->answer == $single_option) ? 'checked' : '' }} type="radio" name="answer_{{ $i }}" id="aswer_{{ $i }}_{{ $ii }}" required value="{{ $single_option }}"> <label for="aswer_{{ $i }}_{{ $ii }}">{{ $single_option }}</label>
                     </li>
                 @endforeach
             </ul>
         @endforeach
 
-        <button class="btn btn-primary">Submit</button>
+        <button class="btn btn-primary {{ $answered ? 'd-none' : '' }}">Submit</button>
+        <p class="{{ $answered ? 'd-block' : 'd-none' }}">Your mark: {{ $quiz->marks }}</p>
     </form>
 </div>
 @endsection

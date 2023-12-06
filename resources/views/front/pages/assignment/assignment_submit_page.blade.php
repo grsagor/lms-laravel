@@ -1,7 +1,22 @@
 @extends('front.partials.app')
 @section('title', 'Assignment')
+@section('css')
+<link rel="stylesheet" href="//cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+@endsection
 @section('content')
     <div>
+
+        {{-- Teacher --}}
+        <table id="users-table" class="table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+        </table>
+        {{-- Student --}}
         <h1>Title: {{ $post->assignment->title }}</h1>
         <p><strong>Description: </strong> {!! $post->assignment->description !!}</p>
         @foreach ($files as $file)
@@ -27,6 +42,7 @@
     </div>
 @endsection
 @section('js')
+<script src="//cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
     <script>
         function previewFiles() {
             const fileInput = document.getElementById('files');
@@ -54,5 +70,29 @@
                 }
             }
         }
+        
+        $(document).ready(function() {
+            $('#users-table').DataTable({
+                processing: true,
+                serverSide: true,
+                ajax: "{{ route('get.users') }}",
+                columns: [
+                    {
+                        data: 'name',
+                        name: 'name'
+                    },
+                    {
+                        data: 'email',
+                        name: 'email'
+                    },
+                    {
+                        data: 'action',
+                        name: 'action',
+                        orderable: false,
+                        searchable: false
+                    },
+                ]
+            });
+        });
     </script>
 @endsection
