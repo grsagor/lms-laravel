@@ -4,10 +4,10 @@
 <link rel="stylesheet" href="//cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
 @endsection
 @section('content')
-    <div>
+    <div class="container">
 
         {{-- Teacher --}}
-        <table id="users-table" class="table">
+        <table id="users-tabl" class="table d-none">
             <thead>
                 <tr>
                     <th>Name</th>
@@ -17,10 +17,12 @@
             </thead>
         </table>
         {{-- Student --}}
-        <h1>Title: {{ $post->assignment->title }}</h1>
+        <p><strong>Title:</strong> {{ $post->assignment->title }}</p>
         <p><strong>Description: </strong> {!! $post->assignment->description !!}</p>
+
+        <p><strong>Attatchments:</strong></p>
         @foreach ($files as $file)
-            <a href="{{ asset($file['path']) }}" target="_blank">{{ $file['name'] }}</a>
+            <a class="btn bg-primary text-white" href="{{ asset($file['path']) }}" target="_blank">{{ $file['name'] }}</a>
         @endforeach
 
         <div>
@@ -33,7 +35,7 @@
                 </div>
                 <div class="mb-3 d-flex">
                     <input type="file" class="d-none" name="files" id="files" onchange="previewFiles()" multiple>
-                    <label for="files" class="btn btn-success flex-grow-1"><i class="fa-solid fa-file"></i></label>
+                    <label for="files" class="btn border flex-grow-1"><i class="fa-solid fa-file"></i></label>
                 </div>
                 <div id="file-preview" class="row"></div>
                 <button type="submit" class="btn btn-primary">Submit</button>

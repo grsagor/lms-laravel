@@ -5,6 +5,6 @@
 
 <div>
     @foreach ($data["courses"] as $course)
-        <a class="w-100 border-0 btn text-start" href="{{ route('single.course.page', ['id' => $course->id]) }}">{{ $course->name }}</a>
+        <a class="w-100 border mb-2 btn text-start" href="{{ route('single.course.page', ['id' => $course->id]) }}">{{ $course->name }}</a>
     @endforeach
 </div>

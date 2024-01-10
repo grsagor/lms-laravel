@@ -13,16 +13,16 @@
             @endif
             @if ($post->post_type == 'assignment')
                 <h6>{{ $post->assignment->title }}</h6>
-                <a href="{{ route('assignment.submit.page', ['id' => $post->id]) }}">Assignment Details</a>
+                <a class="btn bg-primary text-white" href="{{ route('assignment.submit.page', ['id' => $post->id]) }}">Assignment Details</a>
             @endif
             @if ($post->post_type == 'quiz')
                 <h6>{{ $post->quiz->title }}</h6>
-                <a href="{{ route('quiz.submit.page', ['id' => $post->id]) }}">Quiz Details</a>
+                <a class="btn bg-primary text-white" href="{{ route('quiz.submit.page', ['id' => $post->id]) }}">Quiz Details</a>
             @endif
         </div>
-        <div class="post--down d-flex justify-content-center">
-            <button class="flex-grow-1">Like</button>
-            <button class="flex-grow-1">Comment</button>
+        <div class="post--down d-flex gap-2 justify-content-center mt-3">
+            <button class="btn border flex-grow-1">Like</button>
+            <button class="btn border flex-grow-1">Comment</button>
         </div>
     </div>
 @endforeach

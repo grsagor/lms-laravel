@@ -4,7 +4,7 @@
 @endsection
 @section('content')
     <div class="row">
-        <div class="col-3 px-0 bg-success text-white">
+        <div class="col-3 px-3 border text-primary">
             @include('front.pages.home.left-side')
         </div>
         <div class="col-6">
