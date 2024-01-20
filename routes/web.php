@@ -30,6 +30,7 @@ Route::middleware(['auth'])->group(function() {
 
     Route::controller(PostController::class)->group(function() {
         Route::post('/post', 'storePost')->name('store.normal.post');
+        Route::post('/post-like-store', 'postLikeStore')->name('post.like.store');
     });
 
     Route::controller(AssignmentController::class)->group(function() {
@@ -38,6 +39,12 @@ Route::middleware(['auth'])->group(function() {
 
         Route::get('assignment/submit/{id}', 'assignimentSubmitPage')->name('assignment.submit.page');
         Route::post('assignment/submit', 'assignimentSubmitStore')->name('submit.assignment.store');
+
+        Route::get('get-assignment-submission', 'getAssignmentSubmission')->name('get.assignment.submission');
+        Route::get('assignment-review-modal', 'assignmentReviewModal')->name('assignment.review.modal');
+
+        Route::post('assignment/review/update', 'assignmentReviewUpdate')->name('assignment.review.update');
+        Route::post('teacher/assignment/submission/delete', 'teacherAssignmentSubmissionDelete')->name('teacher.assignment.submission.delete');
     });
 
     Route::controller(QuizController::class)->group(function() {
@@ -49,6 +56,12 @@ Route::middleware(['auth'])->group(function() {
 
         Route::get('quiz/submit/{id}', 'quizSubmitPage')->name('quiz.submit.page');
         Route::post('quiz/submit', 'quizSubmitStore')->name('submit.quiz.store');
+
+        Route::get('get-quiz-submission-list', 'getAssignmentSubmission')->name('get.quiz.submission.list');
+        Route::get('quiz-review-modal', 'assignmentReviewModal')->name('teacher.quiz.review.modal');
+
+        Route::post('quiz/review/update', 'assignmentReviewUpdate')->name('teacher.quiz.review.update');
+        Route::post('teacher/quiz/submission/delete', 'teacherAssignmentSubmissionDelete')->name('teacher.quiz.submission.delete');
     });
 });
 
@@ -58,5 +71,3 @@ Route::post('/register', [RegisterController::class, 'register'])->name('registe
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [LoginController::class, 'login'])->name('login');
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
-
-Route::get('get-users', [AssignmentController::class, 'getUsers'])->name('get.users');

@@ -1,6 +1,6 @@
 @extends('auth.app')
 @section('content')
-    <div class="container">
+    <div class="container w-25">
         <h1>Register</h1>
         <form method="POST" action="{{ route('register') }}">
             @csrf
@@ -33,7 +33,7 @@
                     <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
                 </div>
             </div>
-            <button type="submit" class="btn btn-primary">Register</button>
+            <button type="submit" class="btn btn-primary w-100 mb-3">Register</button>
             <div>
                 Already have an account? <a href="{{ route('login') }}">Click here</a> to login.
             </div>

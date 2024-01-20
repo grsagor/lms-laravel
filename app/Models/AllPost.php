@@ -25,11 +25,11 @@ class AllPost extends Model
 
     public function user()
     {
-        return $this->hasOne(User::class, 'id', 'user_id');
+        return $this->belongsTo(User::class, 'user_id');
     }
     public function post()
     {
-        return $this->hasOne(Post::class, 'id', 'post_id');
+        return $this->belongsTo(Post::class, 'post_id');
     }
     public function assignment()
     {
@@ -38,5 +38,9 @@ class AllPost extends Model
     public function quiz()
     {
         return $this->belongsTo(Quiz::class, 'post_id');
+    }
+    public function likes()
+    {
+        return $this->hasMany(PostLike::class, 'post_id', 'id');
     }
 }

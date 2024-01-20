@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Helpers\FileHelper;
 use App\Models\AllPost;
 use App\Models\Post;
+use App\Models\PostLike;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Carbon;
@@ -36,5 +37,12 @@ class PostController extends Controller
         $all_post->save();
 
         return back()->with('success','Post saved successfully');
+    }
+
+    public function postLikeStore(Request $request) {
+        $like = new PostLike();
+        $like->user_id = Auth::user()->id;
+        $like->post_id = $request->post_id;
+        $like->save();
     }
 }

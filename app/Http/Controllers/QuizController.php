@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use App\Models\AllPost;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
+use Yajra\DataTables\DataTables;
 
 class QuizController extends Controller
 {
@@ -129,4 +131,68 @@ class QuizController extends Controller
         return response()->json(['success' => true]);
     }
 
+    public function getAssignmentSubmission(Request $request)
+    {
+        $data = QuizSubmission::where('quiz_id', $request->quiz_id)->get();
+
+        return DataTables::of($data)
+            ->editColumn('marks', function ($row) {
+                if ($row->marks) {
+                    return $row->marks;
+                } else {
+                    return 'N/A';
+                }
+            })
+            ->addColumn('student_name', function ($row) {
+                return $row->student->name;
+            })
+            ->addColumn('action', function ($row) {
+                $btn = '<div class="d-flex gap-1">';
+                $btn = $btn . '<button class="btn btn-sm btn-primary edit_btn" data-id="' . $row->id . '"><i class="fa-solid fa-pen"></i></button>';
+                $btn = $btn . '<button class="btn btn-sm btn-danger delete_btn" data-id="' . $row->id . '"><i class="fa-solid fa-trash"></i></button>';
+                $btn = $btn . '</div>';
+                return  $btn;
+            })
+            ->rawColumns(['action', 'student_name'])
+            ->make(true);
+    }
+
+    public function assignmentReviewModal(Request $request) {
+        $assignment = QuizSubmission::find($request->id);
+        return view('front.pages.quiz.review_student_submission', compact('assignment'));
+    }
+
+    public function assignmentReviewUpdate(Request $request) {
+        $validator = Validator::make($request->all(), [
+            'teachers_feedback' => 'required',
+            'marks' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'type' => 'error',
+                'errors' => $validator->errors(),
+            ], 422);
+        }
+        $assignment = QuizSubmission::find($request->id);
+        $assignment->teachers_feedback = $request->teachers_feedback;
+        $assignment->marks = $request->marks;
+        $assignment->save();
+        $response =[
+            'success' => true
+        ];
+        return response()->json($response);
+    }
+
+    public function teacherAssignmentSubmissionDelete(Request $request) {
+        $assignment = QuizSubmission::find($request->id);
+        if ($assignment) {
+            $assignment->delete();
+            $response = [
+                'success' => true
+            ];
+        }
+
+        return response()->json($response);
+    }
 }

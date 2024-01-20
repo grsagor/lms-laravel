@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\AllPost;
 use App\Models\Course;
 use App\Models\Post;
+use App\Models\PostLike;
 use Illuminate\Http\Request;
 use App\Models\SCR;
 use Illuminate\Support\Facades\Auth;
@@ -25,7 +26,9 @@ class FrontendController extends Controller
         }
         $courseIds = collect($courses)->pluck('id')->toArray();
 
-        $posts = AllPost::whereIn('course_id',$courseIds)->with(['post', 'assignment', 'quiz', 'user'])->get();
+        $posts = AllPost::whereIn('course_id',$courseIds)->with(['post', 'assignment', 'quiz', 'user', 'likes'])->get();
+        $posts = PostLike::with('post')->get();
+        return $posts;
         $data = [
             'posts' => $posts,
         ];

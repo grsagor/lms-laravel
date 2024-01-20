@@ -318,3 +318,11 @@ input[type='radio'] {
   background-color: var(--gray-300);
   border: none;
 }
+
+/* Custom Style Start */
+.liked {
+  background-color: var(--primary-color);
+}
+.liked:hover {
+  background-color: var(--primary-hover-color);
+}

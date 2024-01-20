@@ -21,7 +21,7 @@
             @endif
         </div>
         <div class="post--down d-flex gap-2 justify-content-center mt-3">
-            <button class="btn border flex-grow-1">Like</button>
+            <button class="btn border flex-grow-1" onclick='handleLike(this,"{{ $post->id }}")'>Like</button>
             <button class="btn border flex-grow-1">Comment</button>
         </div>
     </div>
