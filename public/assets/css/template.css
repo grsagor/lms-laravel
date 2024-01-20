@@ -299,7 +299,7 @@ h6 {
   * Mobile Navigation 
   */
 .mobile-nav-toggle {
-    color: #37423b;
+    color: #5fcf80;
     font-size: 28px;
     cursor: pointer;
     display: none !important;
@@ -313,7 +313,7 @@ h6 {
 
 @media (max-width: 991px) {
     .mobile-nav-toggle {
-        display: block;
+        display: block !important;
     }
 
     .navbar ul {
