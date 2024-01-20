@@ -1,7 +1,7 @@
-<div class="w-25 mx-auto">
-    <img class="img-fluid rounded-circle" src="{{ asset('assets/img/fixed/dp.jpg') }}" alt="">
+<div class="w-25 aspect-ratio-1x1 mx-auto mt-3">
+    <img class="w-100 h-100 object-fit-cover rounded-circle" src="{{ Auth::user()->dp ? asset(Auth::user()->dp) : asset('assets/img/fixed/dp.jpg') }}" alt="">
 </div>
-<h6 class="text-center mt-2">Nusrat Jahan</h6>
+<a href="{{ route('profile') }}" class="btn text-primary d-flex justify-content-center mt-2 mb-3">{{ Auth::user()->name }}</a>
 
 <div>
     @foreach ($data["courses"] as $course)

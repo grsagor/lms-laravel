@@ -1,7 +1,7 @@
 @foreach ($posts as $post)
     <div class="card p-3 mb-3">
         <div class="post--top d-flex align-items-center gap-2 mb-3">
-            <div class="post__top--img"><img class="img-fluid rounded-circle" src="{{ asset('assets/img/fixed/dp.jpg') }}" alt=""></div>
+            <div class="post__top--img"><img class="w-100 h-100 object-fit-cover rounded-circle" src="{{ Auth::user()->dp ? asset(Auth::user()->dp) : asset('assets/img/fixed/dp.jpg') }}" alt=""></div>
             <div>
                 <p class="mb-0">{{ $post->user->name }}</p>
                 <small>{{ $post->created_at }}</small>
@@ -21,8 +21,8 @@
             @endif
         </div>
         <div class="post--down d-flex gap-2 justify-content-center mt-3">
-            <button class="btn border flex-grow-1" onclick='handleLike(this,"{{ $post->id }}")'>Like</button>
-            <button class="btn border flex-grow-1">Comment</button>
+            <button class="btn border flex-grow-1 {{ $post->is_liked ? 'liked' : '' }}" onclick='handleLike(this,"{{ $post->id }}")'>Like</button>
+            <a href="{{ route('post.details', ['id' => $post->id]) }}" class="btn border flex-grow-1">Comment</a>
         </div>
     </div>
 @endforeach

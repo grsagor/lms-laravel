@@ -3,6 +3,7 @@
     Create Quiz
 @endsection
 @section('content')
+<div class="container">
     <h1 class="text-center">Assign Quiz</h1>
     <form action="{{ route('store.quiz.question') }}" method="POST" enctype="multipart/form-data">
         @csrf
@@ -53,6 +54,7 @@
         <button id="add__question--btn" type="button" class="btn btn-success add__question--btn">Add Question</button>
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
+</div>
 @endsection
 @section('js')
     <script>

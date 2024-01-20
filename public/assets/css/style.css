@@ -322,6 +322,7 @@ input[type='radio'] {
 /* Custom Style Start */
 .liked {
   background-color: var(--primary-color);
+  color: #fff;
 }
 .liked:hover {
   background-color: var(--primary-hover-color);

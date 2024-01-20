@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 05, 2023 at 09:36 PM
+-- Generation Time: Jan 20, 2024 at 07:31 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.1.17
 
@@ -44,8 +44,7 @@ CREATE TABLE `all_posts` (
 INSERT INTO `all_posts` (`id`, `user_id`, `post_id`, `course_id`, `post_type`, `created_at`, `updated_at`) VALUES
 ('6537ed737f6f4-stlout-72232086538164197', '4', '6537ed737ed7b-stlout-82804592575662684', '653746624ea2b-stlout-12896205320286654', 'assignment', '2023-10-24 16:14:43', '2023-10-24 16:14:43'),
 ('6539588c7d90d-stlout-23751450834589994', '4', '6539588c77d6a-stlout-62946251838315479', '653746624ea2b-stlout-12896205320286654', 'assignment', '2023-10-25 18:03:56', '2023-10-25 18:03:56'),
-('6547e0b6526f1-stlout-72031127419191086', '4', '6547e0b64fbc0-stlout-94149479298431346', '653746624ea2b-stlout-12896205320286654', 'quiz', '2023-11-05 18:36:38', '2023-11-05 18:36:38'),
-('6547e1856a605-stlout-98373229748817853', '4', '6547e1856984e-stlout-82334645585038009', '653746624ea2b-stlout-12896205320286654', 'normal', '2023-11-05 18:40:05', '2023-11-05 18:40:05');
+('6547e0b6526f1-stlout-72031127419191086', '4', '6547e0b64fbc0-stlout-94149479298431346', '653746624ea2b-stlout-12896205320286654', 'quiz', '2023-11-05 18:36:38', '2023-11-05 18:36:38');
 
 -- --------------------------------------------------------
 
@@ -76,20 +75,43 @@ INSERT INTO `assignments` (`id`, `user_id`, `course_id`, `title`, `files`, `desc
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `assignment_submissions`
+--
+
+CREATE TABLE `assignment_submissions` (
+  `id` varchar(255) NOT NULL,
+  `student_id` varchar(255) DEFAULT NULL,
+  `assignment_id` varchar(255) DEFAULT NULL,
+  `files` text DEFAULT NULL,
+  `comments` text DEFAULT NULL,
+  `marks` varchar(255) DEFAULT NULL,
+  `teachers_feedback` text DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `comments`
 --
 
 CREATE TABLE `comments` (
   `id` varchar(255) NOT NULL,
   `user_id` varchar(255) DEFAULT NULL,
-  `class_id` varchar(255) DEFAULT NULL,
   `post_id` varchar(255) DEFAULT NULL,
   `comment` text DEFAULT NULL,
-  `posted_date` varchar(255) DEFAULT NULL,
-  `posted_time` varchar(255) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `comments`
+--
+
+INSERT INTO `comments` (`id`, `user_id`, `post_id`, `comment`, `created_at`, `updated_at`) VALUES
+('65ac02826aa3f-stlout-52560231832978232', '4', '6537ed737f6f4-stlout-72232086538164197', 'ki khobor', '2024-01-20 17:27:30', '2024-01-20 17:27:30'),
+('65ac0286da93e-stlout-51659995000833680', '4', '6537ed737f6f4-stlout-72232086538164197', 'bhalo to?', '2024-01-20 17:27:34', '2024-01-20 17:27:34');
 
 -- --------------------------------------------------------
 
@@ -141,7 +163,10 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (7, '2023_10_22_105405_create_quizzes_table', 2),
 (8, '2023_10_24_041302_create_t_c_r_s_table', 3),
 (9, '2023_10_24_041314_create_s_c_r_s_table', 3),
-(10, '2023_10_24_212008_create_all_posts_table', 4);
+(10, '2023_10_24_212008_create_all_posts_table', 4),
+(11, '2023_11_06_023459_create_assignment_submissions_table', 5),
+(12, '2023_11_07_003104_create_quiz_submissions_table', 5),
+(13, '2024_01_20_132339_create_post_likes_table', 6);
 
 -- --------------------------------------------------------
 
@@ -191,6 +216,29 @@ INSERT INTO `posts` (`id`, `user_id`, `course_id`, `post`, `posted_date`, `poste
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `post_likes`
+--
+
+CREATE TABLE `post_likes` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `user_id` varchar(255) NOT NULL,
+  `post_id` varchar(255) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `post_likes`
+--
+
+INSERT INTO `post_likes` (`id`, `user_id`, `post_id`, `created_at`, `updated_at`) VALUES
+(8, '4', '6539588c7d90d-stlout-23751450834589994', '2024-01-20 10:46:36', '2024-01-20 10:46:36'),
+(9, '4', '6547e0b6526f1-stlout-72031127419191086', '2024-01-20 10:46:46', '2024-01-20 10:46:46'),
+(10, '4', '6537ed737f6f4-stlout-72232086538164197', '2024-01-20 16:35:57', '2024-01-20 16:35:57');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `quizzes`
 --
 
@@ -211,6 +259,32 @@ CREATE TABLE `quizzes` (
 
 INSERT INTO `quizzes` (`id`, `user_id`, `title`, `description`, `deadline`, `quizzes`, `created_at`, `updated_at`) VALUES
 ('6547e0b64fbc0-stlout-94149479298431346', '4', 'Perspiciatis velit', NULL, '2023-10-02 16:25:00', '[{\"question\":\"Excepturi et autem q\",\"option\":[\"Unde sapiente quam e\",\"Qui dolor perspiciat\",\"Ipsum adipisicing te\",\"Iure pariatur Commo\"],\"right_ans\":\"Qui dolor perspiciat\"},{\"question\":\"Nisi expedita nobis\",\"option\":[\"Et sunt et mollitia\",\"Incididunt est quasi\",\"Nemo repellendus Eo\",\"Vel quam tempor fugi\"],\"right_ans\":\"Incididunt est quasi\"}]', '2023-11-05 18:36:38', '2023-11-05 18:36:38');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `quiz_submissions`
+--
+
+CREATE TABLE `quiz_submissions` (
+  `id` varchar(255) NOT NULL,
+  `student_id` varchar(255) DEFAULT NULL,
+  `quiz_id` varchar(255) DEFAULT NULL,
+  `answers` text DEFAULT NULL,
+  `comments` text DEFAULT NULL,
+  `marks` varchar(255) DEFAULT NULL,
+  `teachers_feedback` text DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `quiz_submissions`
+--
+
+INSERT INTO `quiz_submissions` (`id`, `student_id`, `quiz_id`, `answers`, `comments`, `marks`, `teachers_feedback`, `created_at`, `updated_at`) VALUES
+('659ee38807bdc-stlout-24148906082009170', '4', '6547e0b64fbc0-stlout-94149479298431346', '[{\"question\":\"Excepturi et autem q\",\"option\":[\"Unde sapiente quam e\",\"Qui dolor perspiciat\",\"Ipsum adipisicing te\",\"Iure pariatur Commo\"],\"right_ans\":\"Qui dolor perspiciat\",\"answer\":\"Ipsum adipisicing te\"},{\"question\":\"Nisi expedita nobis\",\"option\":[\"Et sunt et mollitia\",\"Incididunt est quasi\",\"Nemo repellendus Eo\",\"Vel quam tempor fugi\"],\"right_ans\":\"Incididunt est quasi\",\"answer\":\"Vel quam tempor fugi\"}]', NULL, '12', 'hiiii', '2024-01-10 18:35:52', '2024-01-20 06:50:04'),
+('65abba9ac864d-stlout-52562991639330589', '65350e1eb853d-stlout-10684209987447268', '6547e0b64fbc0-stlout-94149479298431346', '[{\"question\":\"Excepturi et autem q\",\"option\":[\"Unde sapiente quam e\",\"Qui dolor perspiciat\",\"Ipsum adipisicing te\",\"Iure pariatur Commo\"],\"right_ans\":\"Qui dolor perspiciat\",\"answer\":\"Unde sapiente quam e\"},{\"question\":\"Nisi expedita nobis\",\"option\":[\"Et sunt et mollitia\",\"Incididunt est quasi\",\"Nemo repellendus Eo\",\"Vel quam tempor fugi\"],\"right_ans\":\"Incididunt est quasi\",\"answer\":\"Vel quam tempor fugi\"}]', NULL, '0', 'qwer', '2024-01-20 12:20:42', '2024-01-20 12:26:31');
 
 -- --------------------------------------------------------
 
@@ -260,6 +334,7 @@ CREATE TABLE `users` (
   `password` varchar(255) NOT NULL,
   `role` varchar(255) NOT NULL,
   `dp` varchar(255) DEFAULT NULL,
+  `status` int(11) DEFAULT 0,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -268,10 +343,10 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `name`, `email`, `password`, `role`, `dp`, `created_at`, `updated_at`) VALUES
-('4', 'Nusrat Jahan', 'n@teacher.com', '$2y$10$ZStnJux6eq7VfB.VIZVf4eGY1bZWG7v.jahLdAWJXsK1sMejs92t.', 'teacher', NULL, '2023-10-22 04:38:19', '2023-10-22 04:38:19'),
-('65350e1eb853d-stlout-10684209987447268', 'Nusrat Student 1', 'n1@student.com', '$2y$10$xn8kebTVXlsCOOkuovEwi.IYpesjM4F.ydblVBECfm9EyyUqDqWIu', 'student', NULL, '2023-10-22 05:57:18', '2023-10-22 05:57:18'),
-('65350e3b0efd2-stlout-21302338425649725', 'Nusrat Student 1', 'n2@student.com', '$2y$10$AmIXHcLXpWuEOAx8pLxWyOSfEOU8M0kWn8rfvtM7RSqSXXBomKyhS', 'student', NULL, '2023-10-22 05:57:47', '2023-10-22 05:57:47');
+INSERT INTO `users` (`id`, `name`, `email`, `password`, `role`, `dp`, `status`, `created_at`, `updated_at`) VALUES
+('4', 'Hello Teacher', 'n@teacher.com', '$2y$10$MSGEfzMv104ovJhsdPAeCeXxCMfBc51BMuY.nvLvm5pEr9wKPfFVm', 'teacher', 'uploads/user-images/170577460765ac0e0f5f9da1.jpg', 0, '2023-10-22 04:38:19', '2024-01-20 18:17:18'),
+('65350e1eb853d-stlout-10684209987447268', 'Nusrat Student 1', 'n1@student.com', '$2y$10$xn8kebTVXlsCOOkuovEwi.IYpesjM4F.ydblVBECfm9EyyUqDqWIu', 'student', NULL, 0, '2023-10-22 05:57:18', '2023-10-22 05:57:18'),
+('65350e3b0efd2-stlout-21302338425649725', 'Nusrat Student 1', 'n2@student.com', '$2y$10$AmIXHcLXpWuEOAx8pLxWyOSfEOU8M0kWn8rfvtM7RSqSXXBomKyhS', 'student', NULL, 0, '2023-10-22 05:57:47', '2023-10-22 05:57:47');
 
 --
 -- Indexes for dumped tables
@@ -287,6 +362,12 @@ ALTER TABLE `all_posts`
 -- Indexes for table `assignments`
 --
 ALTER TABLE `assignments`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `assignment_submissions`
+--
+ALTER TABLE `assignment_submissions`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -323,9 +404,21 @@ ALTER TABLE `posts`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `post_likes`
+--
+ALTER TABLE `post_likes`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `quizzes`
 --
 ALTER TABLE `quizzes`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `quiz_submissions`
+--
+ALTER TABLE `quiz_submissions`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -355,13 +448,19 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `personal_access_tokens`
 --
 ALTER TABLE `personal_access_tokens`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `post_likes`
+--
+ALTER TABLE `post_likes`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `tcr`

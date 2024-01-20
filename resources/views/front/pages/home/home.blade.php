@@ -18,8 +18,7 @@
 @section('js')
     <script>
         function handleLike(button, post_id) {
-            $(button).addClass('liked').removeClass('disliked');
-            console.log(post_id)
+            $(button).toggleClass('liked disliked');
             $.ajax({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')

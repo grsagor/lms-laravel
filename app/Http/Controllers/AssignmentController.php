@@ -99,7 +99,7 @@ class AssignmentController extends Controller
 
         return DataTables::of($data)
             ->editColumn('marks', function ($row) {
-                if ($row->marks) {
+                if ($row->marks || $row->marks == 0) {
                     return $row->marks;
                 } else {
                     return 'N/A';

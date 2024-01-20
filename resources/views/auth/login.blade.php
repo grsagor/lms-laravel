@@ -1,4 +1,5 @@
 @extends('auth.app')
+@section('title', 'Login')    
 @section('content')
 <div class="container w-25">
     <h3 class="text-center">Login</h3>

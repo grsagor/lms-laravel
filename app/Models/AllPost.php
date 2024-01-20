@@ -29,7 +29,7 @@ class AllPost extends Model
     }
     public function post()
     {
-        return $this->belongsTo(Post::class, 'post_id');
+        return $this->hasOne(Post::class, 'id', 'post_id');
     }
     public function assignment()
     {
@@ -42,5 +42,9 @@ class AllPost extends Model
     public function likes()
     {
         return $this->hasMany(PostLike::class, 'post_id', 'id');
+    }
+    public function comments()
+    {
+        return $this->hasMany(Comment::class, 'post_id', 'id')->orderBy('created_at', 'desc');
     }
 }

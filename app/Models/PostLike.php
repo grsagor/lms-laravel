@@ -11,6 +11,6 @@ class PostLike extends Model
 
     public function post()
     {
-        return $this->belongsTo(AllPost::class, 'post_id' , 'id');
+        return $this->hasOne(AllPost::class, 'id' , 'all_post_id');
     }
 }

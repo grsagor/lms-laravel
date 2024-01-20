@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Course;
+use App\Models\PostLike;
 use App\Models\SCR;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
@@ -58,7 +59,16 @@ class CourseController extends Controller
     public function singleCoursePage($id) {
         $course = Course::find($id);
 
-        $posts = AllPost::where('course_id',$id)->with(['post', 'assignment', 'quiz', 'user'])->get();
+        $posts = AllPost::where('course_id',$id)->with(['post', 'assignment', 'quiz', 'user', 'likes'])->get();
+
+        foreach ($posts as $post) {
+            $post->like_count = count($post->likes);
+            if (PostLike::where([['user_id', Auth::user()->id], ['post_id', $post->id]])->first()) {
+                $post->is_liked = 1;
+            } else {
+                $post->is_liked = 0;
+            }
+        }
 
         $data = [
             'course' => $course,

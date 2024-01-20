@@ -21,6 +21,9 @@ use App\Http\Controllers\Auth\LoginController;
 
 Route::middleware(['auth'])->group(function() {
     Route::get('/', [FrontendController::class, 'home'])->name('home');
+    Route::get('/profile', [FrontendController::class, 'profile'])->name('profile');
+    Route::post('/profile/info/update', [FrontendController::class, 'updateProfileInfo'])->name('profile.info.update');
+    Route::post('/change/password', [FrontendController::class, 'changePassword'])->name('change.password');
 
     Route::controller(CourseController::class)->group(function() {
         Route::get('/courses', 'index')->name('front.courses');
@@ -31,6 +34,8 @@ Route::middleware(['auth'])->group(function() {
     Route::controller(PostController::class)->group(function() {
         Route::post('/post', 'storePost')->name('store.normal.post');
         Route::post('/post-like-store', 'postLikeStore')->name('post.like.store');
+        Route::get('/post/details/{id}', 'postDetails')->name('post.details');
+        Route::post('/post/comment/store', 'postCommentStore')->name('post.comment.store');
     });
 
     Route::controller(AssignmentController::class)->group(function() {

@@ -3,35 +3,37 @@
     Create Assignment
 @endsection
 @section('content')
-    <h1 class="text-center">Assign Task</h1>
-    <form action="{{ route('store.create.assignment') }}" method="POST" enctype="multipart/form-data">
-        @csrf
-        <input type="hidden" name="course_id" value="{{ $course_id }}">
-        <div class="mb-3">
-            <label for="title" class="form-label">Title</label>
-            <input type="text" class="form-control" id="title" name="title">
-        </div>
-        <div class="mb-3">
-            <label for="description" class="form-label">Description</label>
-            <textarea type="text" class="form-control richtext" id="description" name="description"></textarea>
-        </div>
-        <div class="mb-3 row">
-            <div class="col-12">
-                <div class="mb-3">
-                    <label for="deadline" class="form-label">Deadline</label>
-                    <input type="datetime-local" class="form-control" id="deadline" name="deadline">
+    <div class="container">
+        <h1 class="text-center">Assign Task</h1>
+        <form action="{{ route('store.create.assignment') }}" method="POST" enctype="multipart/form-data">
+            @csrf
+            <input type="hidden" name="course_id" value="{{ $course_id }}">
+            <div class="mb-3">
+                <label for="title" class="form-label">Title</label>
+                <input type="text" class="form-control" id="title" name="title">
+            </div>
+            <div class="mb-3">
+                <label for="description" class="form-label">Description</label>
+                <textarea type="text" class="form-control richtext" id="description" name="description"></textarea>
+            </div>
+            <div class="mb-3 row">
+                <div class="col-12">
+                    <div class="mb-3">
+                        <label for="deadline" class="form-label">Deadline</label>
+                        <input type="datetime-local" class="form-control" id="deadline" name="deadline">
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="mb-3 d-flex">
-            <input type="file" class="d-none" name="files" id="files" onchange="previewFiles()" multiple>
-            <label for="files" class="btn btn-success flex-grow-1"><i class="fa-solid fa-file"></i></label>
-        </div>
-
-        <div id="file-preview" class="row"></div>
-
-        <button type="submit" class="btn btn-primary">Submit</button>
-    </form>
+            <div class="mb-3 d-flex">
+                <input type="file" class="d-none" name="files" id="files" onchange="previewFiles()" multiple>
+                <label for="files" class="btn btn-success flex-grow-1"><i class="fa-solid fa-file"></i></label>
+            </div>
+    
+            <div id="file-preview" class="row"></div>
+    
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
 @endsection
 @section('js')
     <script>

@@ -18,4 +18,8 @@ class Comment extends Model
             $model->id = substr(uniqid(), 0, 13).'-stlout-'.random_int(10000000000000000, 99999999999999999);
         });
     }
+
+    public function user() {
+        return $this->belongsTo(User::class, 'user_id');
+    }
 }
