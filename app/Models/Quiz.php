@@ -18,4 +18,8 @@ class Quiz extends Model
             $model->id = substr(uniqid(), 0, 13).'-stlout-'.random_int(10000000000000000, 99999999999999999);
         });
     }
+
+    public function post() {
+        return $this->hasOne(AllPost::class, 'post_id');
+    }
 }

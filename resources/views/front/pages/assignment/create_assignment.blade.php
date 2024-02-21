@@ -13,6 +13,10 @@
                 <input type="text" class="form-control" id="title" name="title">
             </div>
             <div class="mb-3">
+                <label for="total_marks" class="form-label">Total marks</label>
+                <input type="number" class="form-control" id="total_marks" name="total_marks">
+            </div>
+            <div class="mb-3">
                 <label for="description" class="form-label">Description</label>
                 <textarea type="text" class="form-control richtext" id="description" name="description"></textarea>
             </div>

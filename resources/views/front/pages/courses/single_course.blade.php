@@ -12,7 +12,7 @@
             @include('front.pages.home.middle')
         </div>
         <div class="col-3">
-            @include('front.pages.home.right-side')
+            @include('front.pages.courses.right-side')
         </div>
     </div>
 @endsection
@@ -37,12 +37,53 @@
                     } else {
                         const div = document.createElement('div');
                         div.classList.add('col-12')
-                        const html = `<a class="btn border border-primary w-100" href="${URL.createObjectURL(file)}" target="_blank">${file.name}</a>`;
+                        const html =
+                            `<a class="btn border border-primary w-100" href="${URL.createObjectURL(file)}" target="_blank">${file.name}</a>`;
                         div.innerHTML = html;
                         filePreview.appendChild(div);
                     }
                 }
             }
         }
+
+        function handleLike(button, post_id) {
+            $(button).toggleClass('liked disliked');
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                url: "{{ route('post.like.store') }}",
+                type: "POST",
+                data: {
+                    post_id: post_id
+                },
+                success: function(response) {
+
+                },
+                error: function(xhr) {
+
+                },
+            })
+        }
+
+        $(document).ready(function() {
+            $(document).on('click', '.request_action__btn', function() {
+                let id = $(this).data('id');
+                let type = $(this).data('type');
+                let data = {
+                    id: id,
+                    type: type
+                };
+                $.ajax({
+                    url: "{{ route('joining.request.action') }}",
+                    type: "GET",
+                    data: data,
+                    dataType: "json",
+                    success: function(response) {
+                        toastr.success(response.message);
+                    }
+                })
+            })
+        })
     </script>
 @endsection

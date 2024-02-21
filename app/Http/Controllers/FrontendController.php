@@ -19,7 +19,7 @@ class FrontendController extends Controller
         $user = Auth::user();
         if ($user->role == 'student') {
             $courses = [];
-            $scrs = SCR::where('student_id', $user->id)->with('course')->get();
+            $scrs = SCR::where([['student_id', $user->id], ['verified', 1]])->with('course')->get();
             foreach ($scrs as $item) {
                 $courses[] = $item->course;
             }
@@ -37,6 +37,7 @@ class FrontendController extends Controller
                 $post->is_liked = 0;
             }
         }
+        // return $posts;
         $data = [
             'posts' => $posts,
         ];

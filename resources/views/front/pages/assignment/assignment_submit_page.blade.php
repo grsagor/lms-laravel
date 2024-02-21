@@ -29,24 +29,33 @@
                 <a class="btn bg-primary text-white" href="{{ asset($file['path']) }}" target="_blank">{{ $file['name'] }}</a>
             @endforeach
 
+            @if ($assignment_submit)
             <div>
-                <form action="{{ route('submit.assignment.store') }}" method="POST" enctype="multipart/form-data">
-                    @csrf
-                    <input type="hidden" name="assignment_id" value="{{ $post->assignment->id }}">
-                    <div class="mb-3">
-                        <label for="comments" class="form-label">Comments</label>
-                        <textarea type="text" class="form-control richtext" id="comments" name="comments"></textarea>
-                    </div>
-                    <div class="mb-3 d-flex">
-                        <input type="file" class="d-none" name="files" id="files" onchange="previewFiles()"
-                            multiple>
-                        <label for="files" class="btn border flex-grow-1"><i class="fa-solid fa-file"></i></label>
-                    </div>
-                    <div id="file-preview" class="row"></div>
-                    <button type="submit" class="btn btn-primary">Submit</button>
-                </form>
+                @foreach ($submit_files as $file)
+                    <a href="{{ url($file["path"]) }}" target="_blank">{{ $file["name"] }}</a>
+                @endforeach
             </div>
+                <p>Marks: {{ $assignment_submit->marks ? $assignment_submit->marks : 'Not reviewd' }}</p>
+            @else
+                <div>
+                    <form action="{{ route('submit.assignment.store') }}" method="POST" enctype="multipart/form-data">
+                        @csrf
+                        <input type="hidden" name="assignment_id" value="{{ $post->assignment->id }}">
+                        <div class="mb-3">
+                            <label for="comments" class="form-label">Comments</label>
+                            <textarea type="text" class="form-control richtext" id="comments" name="comments"></textarea>
+                        </div>
+                        <div class="mb-3 d-flex">
+                            <input type="file" class="d-none" name="files" id="files" onchange="previewFiles()"
+                                multiple>
+                            <label for="files" class="btn border flex-grow-1"><i class="fa-solid fa-file"></i></label>
+                        </div>
+                        <div id="file-preview" class="row"></div>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                </div>
             @endif
+        @endif
 
     </div>
 

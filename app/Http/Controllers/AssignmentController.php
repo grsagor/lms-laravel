@@ -31,6 +31,7 @@ class AssignmentController extends Controller
         $assignment->course_id = $request->course_id;
         $assignment->title = $request->title;
         $assignment->description = $request->description;
+        $assignment->total_marks = $request->total_marks;
         $assignment->deadline = Carbon::parse($request->deadline)->format('Y-m-d H:i:s');
 
         $assignment->files = [];
@@ -63,14 +64,32 @@ class AssignmentController extends Controller
 
             $files[] = [
                 'path' => $file,
-                'name' => $filename,
+                'name' => FileHelper::getOriginalFilename($filename),
                 'extension' => $extension
             ];
+        }
+        $assignment_submit = AssignmentSubmission::where([['student_id', Auth::user()->id], ['assignment_id', $post->assignment->id]])->first();
+        $submit_files = [];
+        if ($assignment_submit) {
+            $original_files = json_decode($assignment_submit->files);
+            foreach ($original_files as $file) {
+                $filePath = $file;
+                $filename = pathinfo($filePath, PATHINFO_BASENAME);
+                $extension = pathinfo($filename, PATHINFO_EXTENSION);
+    
+                $submit_files[] = [
+                    'path' => $file,
+                    'name' => FileHelper::getOriginalFilename($filename),
+                    'extension' => $extension
+                ];
+            }
         }
 
         $data = [
             'post' => $post,
-            'files' => $files
+            'files' => $files,
+            'assignment_submit' => $assignment_submit,
+            'submit_files' => $submit_files,
         ];
         return view('front.pages.assignment.assignment_submit_page', $data);
     }
@@ -112,28 +131,30 @@ class AssignmentController extends Controller
                 $btn = '<div class="d-flex gap-1">';
                 $files = json_decode($row->files);
                 foreach ($files as $file) {
-                    $btn = $btn . '<a class="btn" href="'.url($file).'" target="_blank"><i class="fa-solid fa-paperclip"></i></a>';
+                    $btn = $btn . '<a class="btn" href="' . url($file) . '" target="_blank"><i class="fa-solid fa-paperclip"></i></a>';
                 }
                 $btn = $btn . '</div>';
-                return  $btn;
+                return $btn;
             })
             ->addColumn('action', function ($row) {
                 $btn = '<div class="d-flex gap-1">';
                 $btn = $btn . '<button class="btn btn-sm btn-primary edit_btn" data-id="' . $row->id . '"><i class="fa-solid fa-pen"></i></button>';
                 $btn = $btn . '<button class="btn btn-sm btn-danger delete_btn" data-id="' . $row->id . '"><i class="fa-solid fa-trash"></i></button>';
                 $btn = $btn . '</div>';
-                return  $btn;
+                return $btn;
             })
             ->rawColumns(['action', 'files'])
             ->make(true);
     }
 
-    public function assignmentReviewModal(Request $request) {
+    public function assignmentReviewModal(Request $request)
+    {
         $assignment = AssignmentSubmission::find($request->id);
         return view('front.pages.assignment.review_student_submission', compact('assignment'));
     }
 
-    public function assignmentReviewUpdate(Request $request) {
+    public function assignmentReviewUpdate(Request $request)
+    {
         $validator = Validator::make($request->all(), [
             'teachers_feedback' => 'required',
             'marks' => 'required',
@@ -149,13 +170,14 @@ class AssignmentController extends Controller
         $assignment->teachers_feedback = $request->teachers_feedback;
         $assignment->marks = $request->marks;
         $assignment->save();
-        $response =[
+        $response = [
             'success' => true
         ];
         return response()->json($response);
     }
 
-    public function teacherAssignmentSubmissionDelete(Request $request) {
+    public function teacherAssignmentSubmissionDelete(Request $request)
+    {
         $assignment = AssignmentSubmission::find($request->id);
         if ($assignment) {
             $assignment->delete();

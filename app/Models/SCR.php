@@ -25,4 +25,8 @@ class SCR extends Model
     {
         return $this->belongsTo(Course::class, 'course_id');
     }
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'student_id');
+    }
 }

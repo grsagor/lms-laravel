@@ -10,6 +10,9 @@
         <div class="post--details">
             @if ($post->post_type == 'normal')
                 {!! $post->post->post !!}
+                @foreach ($post->post->files as $file)
+                <a target="_blank" href="{{ $file["path"] }}">{{ $file["name"] }}</a>
+                @endforeach
             @endif
             @if ($post->post_type == 'assignment')
                 <h6>{{ $post->assignment->title }}</h6>

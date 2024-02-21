@@ -37,6 +37,7 @@ class QuizController extends Controller
         $quiz->user_id = Auth::user()->id;
         $quiz->title = $request->title;
         $quiz->description = $request->description;
+        $quiz->total_marks = count($request->question);
         $quiz->quizzes = json_encode($quizzes);
         $quiz->deadline = Carbon::parse($request->deadline)->format('Y-m-d H:i:s');
 

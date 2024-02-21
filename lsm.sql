@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 20, 2024 at 07:31 PM
+-- Generation Time: Feb 20, 2024 at 07:19 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.1.17
 
@@ -90,6 +90,13 @@ CREATE TABLE `assignment_submissions` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Dumping data for table `assignment_submissions`
+--
+
+INSERT INTO `assignment_submissions` (`id`, `student_id`, `assignment_id`, `files`, `comments`, `marks`, `teachers_feedback`, `created_at`, `updated_at`) VALUES
+('65b4a4219addb-stlout-20195332737250917', '65350e1eb853d-stlout-10684209987447268', '6537ed737ed7b-stlout-82804592575662684', '[\"\\/upload\\/Zulfeqar Haider Khan- CV.pdf\"]', NULL, '10', 'aserawerw', '2024-01-27 06:35:13', '2024-01-27 06:35:52');
+
 -- --------------------------------------------------------
 
 --
@@ -135,7 +142,8 @@ CREATE TABLE `courses` (
 
 INSERT INTO `courses` (`id`, `code`, `name`, `teacher_id`, `students`, `created_at`, `updated_at`) VALUES
 ('653746624ea2b-stlout-12896205320286654', 'RXd601', 'First Course', '4', NULL, '2023-10-23 22:21:54', '2023-10-23 22:21:54'),
-('6537484e9f56d-stlout-40657266389260616', 'izg908', 'Second class', '4', NULL, '2023-10-23 22:30:06', '2023-10-23 22:30:06');
+('6537484e9f56d-stlout-40657266389260616', 'izg908', 'Second class', '4', NULL, '2023-10-23 22:30:06', '2023-10-23 22:30:06'),
+('65b4a3422da68-stlout-85615500327349598', 'APL622', 'test couse', '4', NULL, '2024-01-27 06:31:30', '2024-01-27 06:31:30');
 
 -- --------------------------------------------------------
 
@@ -234,7 +242,7 @@ CREATE TABLE `post_likes` (
 INSERT INTO `post_likes` (`id`, `user_id`, `post_id`, `created_at`, `updated_at`) VALUES
 (8, '4', '6539588c7d90d-stlout-23751450834589994', '2024-01-20 10:46:36', '2024-01-20 10:46:36'),
 (9, '4', '6547e0b6526f1-stlout-72031127419191086', '2024-01-20 10:46:46', '2024-01-20 10:46:46'),
-(10, '4', '6537ed737f6f4-stlout-72232086538164197', '2024-01-20 16:35:57', '2024-01-20 16:35:57');
+(12, '4', '6537ed737f6f4-stlout-72232086538164197', '2024-02-20 18:00:33', '2024-02-20 18:00:33');
 
 -- --------------------------------------------------------
 
@@ -283,8 +291,7 @@ CREATE TABLE `quiz_submissions` (
 --
 
 INSERT INTO `quiz_submissions` (`id`, `student_id`, `quiz_id`, `answers`, `comments`, `marks`, `teachers_feedback`, `created_at`, `updated_at`) VALUES
-('659ee38807bdc-stlout-24148906082009170', '4', '6547e0b64fbc0-stlout-94149479298431346', '[{\"question\":\"Excepturi et autem q\",\"option\":[\"Unde sapiente quam e\",\"Qui dolor perspiciat\",\"Ipsum adipisicing te\",\"Iure pariatur Commo\"],\"right_ans\":\"Qui dolor perspiciat\",\"answer\":\"Ipsum adipisicing te\"},{\"question\":\"Nisi expedita nobis\",\"option\":[\"Et sunt et mollitia\",\"Incididunt est quasi\",\"Nemo repellendus Eo\",\"Vel quam tempor fugi\"],\"right_ans\":\"Incididunt est quasi\",\"answer\":\"Vel quam tempor fugi\"}]', NULL, '12', 'hiiii', '2024-01-10 18:35:52', '2024-01-20 06:50:04'),
-('65abba9ac864d-stlout-52562991639330589', '65350e1eb853d-stlout-10684209987447268', '6547e0b64fbc0-stlout-94149479298431346', '[{\"question\":\"Excepturi et autem q\",\"option\":[\"Unde sapiente quam e\",\"Qui dolor perspiciat\",\"Ipsum adipisicing te\",\"Iure pariatur Commo\"],\"right_ans\":\"Qui dolor perspiciat\",\"answer\":\"Unde sapiente quam e\"},{\"question\":\"Nisi expedita nobis\",\"option\":[\"Et sunt et mollitia\",\"Incididunt est quasi\",\"Nemo repellendus Eo\",\"Vel quam tempor fugi\"],\"right_ans\":\"Incididunt est quasi\",\"answer\":\"Vel quam tempor fugi\"}]', NULL, '0', 'qwer', '2024-01-20 12:20:42', '2024-01-20 12:26:31');
+('65b4a61c5ad96-stlout-20653058328948510', '65350e1eb853d-stlout-10684209987447268', '6547e0b64fbc0-stlout-94149479298431346', '[{\"question\":\"Excepturi et autem q\",\"option\":[\"Unde sapiente quam e\",\"Qui dolor perspiciat\",\"Ipsum adipisicing te\",\"Iure pariatur Commo\"],\"right_ans\":\"Qui dolor perspiciat\",\"answer\":\"Qui dolor perspiciat\"},{\"question\":\"Nisi expedita nobis\",\"option\":[\"Et sunt et mollitia\",\"Incididunt est quasi\",\"Nemo repellendus Eo\",\"Vel quam tempor fugi\"],\"right_ans\":\"Incididunt est quasi\",\"answer\":\"Et sunt et mollitia\"}]', NULL, '1', NULL, '2024-01-27 06:43:40', '2024-01-27 06:43:40');
 
 -- --------------------------------------------------------
 
@@ -296,6 +303,7 @@ CREATE TABLE `scr` (
   `id` varchar(255) NOT NULL,
   `student_id` varchar(255) NOT NULL,
   `course_id` varchar(255) NOT NULL,
+  `verified` int(11) NOT NULL DEFAULT 0,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -304,8 +312,8 @@ CREATE TABLE `scr` (
 -- Dumping data for table `scr`
 --
 
-INSERT INTO `scr` (`id`, `student_id`, `course_id`, `created_at`, `updated_at`) VALUES
-('6547d64267c49-stlout-45569832707172966', '65350e1eb853d-stlout-10684209987447268', '653746624ea2b-stlout-12896205320286654', '2023-11-05 17:52:02', '2023-11-05 17:52:02');
+INSERT INTO `scr` (`id`, `student_id`, `course_id`, `verified`, `created_at`, `updated_at`) VALUES
+('6547d64267c49-stlout-45569832707172966', '65350e1eb853d-stlout-10684209987447268', '653746624ea2b-stlout-12896205320286654', 0, '2023-11-05 17:52:02', '2023-11-05 17:52:02');
 
 -- --------------------------------------------------------
 
@@ -460,7 +468,7 @@ ALTER TABLE `personal_access_tokens`
 -- AUTO_INCREMENT for table `post_likes`
 --
 ALTER TABLE `post_likes`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `tcr`

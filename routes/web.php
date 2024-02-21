@@ -29,6 +29,7 @@ Route::middleware(['auth'])->group(function() {
         Route::get('/courses', 'index')->name('front.courses');
         Route::post('/courses', 'createCourse')->name('create.course');
         Route::get('/course/{id}', 'singleCoursePage')->name('single.course.page');
+        Route::get('/joining/request/action', 'joiningRequestAction')->name('joining.request.action');
     });
 
     Route::controller(PostController::class)->group(function() {
