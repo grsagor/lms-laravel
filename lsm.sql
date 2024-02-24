@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 20, 2024 at 07:19 PM
+-- Generation Time: Feb 24, 2024 at 05:30 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.1.17
 
@@ -42,9 +42,11 @@ CREATE TABLE `all_posts` (
 --
 
 INSERT INTO `all_posts` (`id`, `user_id`, `post_id`, `course_id`, `post_type`, `created_at`, `updated_at`) VALUES
-('6537ed737f6f4-stlout-72232086538164197', '4', '6537ed737ed7b-stlout-82804592575662684', '653746624ea2b-stlout-12896205320286654', 'assignment', '2023-10-24 16:14:43', '2023-10-24 16:14:43'),
-('6539588c7d90d-stlout-23751450834589994', '4', '6539588c77d6a-stlout-62946251838315479', '653746624ea2b-stlout-12896205320286654', 'assignment', '2023-10-25 18:03:56', '2023-10-25 18:03:56'),
-('6547e0b6526f1-stlout-72031127419191086', '4', '6547e0b64fbc0-stlout-94149479298431346', '653746624ea2b-stlout-12896205320286654', 'quiz', '2023-11-05 18:36:38', '2023-11-05 18:36:38');
+('65d5841352648-stlout-59444256142454672', '4', '65d5841350866-stlout-33623956525466851', '65d583daafce6-stlout-91855518025707457', 'normal', '2024-02-21 05:03:15', '2024-02-21 05:03:15'),
+('65d5872285c6f-stlout-40103791903232889', '4', '65d58722848d3-stlout-93763649387927357', '65d583daafce6-stlout-91855518025707457', 'assignment', '2024-02-21 05:16:18', '2024-02-21 05:16:18'),
+('65d5889b334e4-stlout-85485746375260541', '4', '65d5889b32221-stlout-68198978796971081', '65d583daafce6-stlout-91855518025707457', 'assignment', '2024-02-21 05:22:35', '2024-02-21 05:22:35'),
+('65d592efc4eb0-stlout-59596559022722959', '4', '65d592efc3548-stlout-95711980164680679', '65d583daafce6-stlout-91855518025707457', 'quiz', '2024-02-21 06:06:39', '2024-02-21 06:06:39'),
+('65d593c22b440-stlout-19617787959063667', '4', '65d593c229380-stlout-47409379579415299', '65d583daafce6-stlout-91855518025707457', 'quiz', '2024-02-21 06:10:10', '2024-02-21 06:10:10');
 
 -- --------------------------------------------------------
 
@@ -60,6 +62,7 @@ CREATE TABLE `assignments` (
   `files` text DEFAULT NULL,
   `description` text DEFAULT NULL,
   `deadline` timestamp NULL DEFAULT NULL,
+  `total_marks` varchar(255) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -68,9 +71,9 @@ CREATE TABLE `assignments` (
 -- Dumping data for table `assignments`
 --
 
-INSERT INTO `assignments` (`id`, `user_id`, `course_id`, `title`, `files`, `description`, `deadline`, `created_at`, `updated_at`) VALUES
-('6537ed737ed7b-stlout-82804592575662684', '4', '653746624ea2b-stlout-12896205320286654', 'asdfas', '[\"\\/upload\\/Zulfeqar Haider Khan- CV.pdf\"]', '<ul><li>dfasdfasdf</li></ul>', '2023-10-25 16:12:00', '2023-10-24 16:14:43', '2023-10-24 16:14:43'),
-('6539588c77d6a-stlout-62946251838315479', '4', '653746624ea2b-stlout-12896205320286654', NULL, '[]', NULL, '2023-10-25 18:03:56', '2023-10-25 18:03:56', '2023-10-25 18:03:56');
+INSERT INTO `assignments` (`id`, `user_id`, `course_id`, `title`, `files`, `description`, `deadline`, `total_marks`, `created_at`, `updated_at`) VALUES
+('65d58722848d3-stlout-93763649387927357', '4', '65d583daafce6-stlout-91855518025707457', 'Assignment 1 Title', '[\"\\/upload\\/65d5872281de5[]Zulfeqar Haider Khan- CV.pdf\"]', '<p>Assignment 1 Description<br></p>', '2024-02-21 05:15:00', '10', '2024-02-21 05:16:18', '2024-02-21 05:16:18'),
+('65d5889b32221-stlout-68198978796971081', '4', '65d583daafce6-stlout-91855518025707457', 'Assignment 2 Title', '[\"\\/upload\\/65d5889b319e1[]Zulfeqar Haider Khan- CV.pdf\"]', '<p>Assignment 2 description</p>', '2024-02-21 05:22:00', '15', '2024-02-21 05:22:35', '2024-02-21 05:22:35');
 
 -- --------------------------------------------------------
 
@@ -95,7 +98,8 @@ CREATE TABLE `assignment_submissions` (
 --
 
 INSERT INTO `assignment_submissions` (`id`, `student_id`, `assignment_id`, `files`, `comments`, `marks`, `teachers_feedback`, `created_at`, `updated_at`) VALUES
-('65b4a4219addb-stlout-20195332737250917', '65350e1eb853d-stlout-10684209987447268', '6537ed737ed7b-stlout-82804592575662684', '[\"\\/upload\\/Zulfeqar Haider Khan- CV.pdf\"]', NULL, '10', 'aserawerw', '2024-01-27 06:35:13', '2024-01-27 06:35:52');
+('65d5873fd49a8-stlout-31860405468838579', '65350e1eb853d-stlout-10684209987447268', '65d58722848d3-stlout-93763649387927357', '[\"\\/upload\\/65d5873fd33e3[]Zulfeqar Haider Khan- CV.pdf\"]', '<p>sd</p>', '5', 'aa', '2024-02-21 05:16:47', '2024-02-21 05:23:28'),
+('65d588b900d5a-stlout-95165841792898695', '65350e1eb853d-stlout-10684209987447268', '65d5889b32221-stlout-68198978796971081', '[\"\\/upload\\/65d588b9004fe[]Zulfeqar Haider Khan- CV.pdf\"]', '<p>asfad</p>', '7', 'aa', '2024-02-21 05:23:05', '2024-02-21 05:23:43');
 
 -- --------------------------------------------------------
 
@@ -111,14 +115,6 @@ CREATE TABLE `comments` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `comments`
---
-
-INSERT INTO `comments` (`id`, `user_id`, `post_id`, `comment`, `created_at`, `updated_at`) VALUES
-('65ac02826aa3f-stlout-52560231832978232', '4', '6537ed737f6f4-stlout-72232086538164197', 'ki khobor', '2024-01-20 17:27:30', '2024-01-20 17:27:30'),
-('65ac0286da93e-stlout-51659995000833680', '4', '6537ed737f6f4-stlout-72232086538164197', 'bhalo to?', '2024-01-20 17:27:34', '2024-01-20 17:27:34');
 
 -- --------------------------------------------------------
 
@@ -141,9 +137,7 @@ CREATE TABLE `courses` (
 --
 
 INSERT INTO `courses` (`id`, `code`, `name`, `teacher_id`, `students`, `created_at`, `updated_at`) VALUES
-('653746624ea2b-stlout-12896205320286654', 'RXd601', 'First Course', '4', NULL, '2023-10-23 22:21:54', '2023-10-23 22:21:54'),
-('6537484e9f56d-stlout-40657266389260616', 'izg908', 'Second class', '4', NULL, '2023-10-23 22:30:06', '2023-10-23 22:30:06'),
-('65b4a3422da68-stlout-85615500327349598', 'APL622', 'test couse', '4', NULL, '2024-01-27 06:31:30', '2024-01-27 06:31:30');
+('65d583daafce6-stlout-91855518025707457', 'WVv589', 'Discrete Math', '4', NULL, '2024-02-21 05:02:18', '2024-02-21 05:02:18');
 
 -- --------------------------------------------------------
 
@@ -219,7 +213,7 @@ CREATE TABLE `posts` (
 --
 
 INSERT INTO `posts` (`id`, `user_id`, `course_id`, `post`, `posted_date`, `posted_time`, `post_type`, `files`, `created_at`, `updated_at`) VALUES
-('6547e1856984e-stlout-82334645585038009', '4', '653746624ea2b-stlout-12896205320286654', 'Est explicabo. Dolor.f', '06 November, 2023', '12:40 AM', 'normal', '[]', '2023-11-05 18:40:05', '2023-11-05 18:40:05');
+('65d5841350866-stlout-33623956525466851', '4', '65d583daafce6-stlout-91855518025707457', '<p>This is post 1</p>', '21 February, 2024', '11:03 AM', NULL, '[\"\\/upload\\/65d584134ffba[]screencapture-127-0-0-1-8000-pos-2024-01-28-01_01_19.png\"]', '2024-02-21 05:03:15', '2024-02-21 05:03:15');
 
 -- --------------------------------------------------------
 
@@ -235,15 +229,6 @@ CREATE TABLE `post_likes` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- Dumping data for table `post_likes`
---
-
-INSERT INTO `post_likes` (`id`, `user_id`, `post_id`, `created_at`, `updated_at`) VALUES
-(8, '4', '6539588c7d90d-stlout-23751450834589994', '2024-01-20 10:46:36', '2024-01-20 10:46:36'),
-(9, '4', '6547e0b6526f1-stlout-72031127419191086', '2024-01-20 10:46:46', '2024-01-20 10:46:46'),
-(12, '4', '6537ed737f6f4-stlout-72232086538164197', '2024-02-20 18:00:33', '2024-02-20 18:00:33');
-
 -- --------------------------------------------------------
 
 --
@@ -257,6 +242,7 @@ CREATE TABLE `quizzes` (
   `description` longtext DEFAULT NULL,
   `deadline` timestamp NULL DEFAULT NULL,
   `quizzes` longtext DEFAULT NULL,
+  `total_marks` varchar(255) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -265,8 +251,9 @@ CREATE TABLE `quizzes` (
 -- Dumping data for table `quizzes`
 --
 
-INSERT INTO `quizzes` (`id`, `user_id`, `title`, `description`, `deadline`, `quizzes`, `created_at`, `updated_at`) VALUES
-('6547e0b64fbc0-stlout-94149479298431346', '4', 'Perspiciatis velit', NULL, '2023-10-02 16:25:00', '[{\"question\":\"Excepturi et autem q\",\"option\":[\"Unde sapiente quam e\",\"Qui dolor perspiciat\",\"Ipsum adipisicing te\",\"Iure pariatur Commo\"],\"right_ans\":\"Qui dolor perspiciat\"},{\"question\":\"Nisi expedita nobis\",\"option\":[\"Et sunt et mollitia\",\"Incididunt est quasi\",\"Nemo repellendus Eo\",\"Vel quam tempor fugi\"],\"right_ans\":\"Incididunt est quasi\"}]', '2023-11-05 18:36:38', '2023-11-05 18:36:38');
+INSERT INTO `quizzes` (`id`, `user_id`, `title`, `description`, `deadline`, `quizzes`, `total_marks`, `created_at`, `updated_at`) VALUES
+('65d592efc3548-stlout-95711980164680679', '4', 'Quiz 1 Title', '<p>Quiz 1 Description<br></p>', '2024-02-21 06:05:00', '[{\"question\":\"What is one?\",\"option\":[\"1\",\"2\"],\"right_ans\":\"1\"},{\"question\":\"What is 2?\",\"option\":[\"2\",\"3\"],\"right_ans\":\"2\"}]', '2', '2024-02-21 06:06:39', '2024-02-21 06:06:39'),
+('65d593c229380-stlout-47409379579415299', '4', 'Quiz 2 Title', '<p>Quiz 2 description</p>', '2024-02-21 06:09:00', '[{\"question\":\"What is three?\",\"option\":[\"3\",\"4\"],\"right_ans\":\"3\"},{\"question\":\"What is four?\",\"option\":[\"4\",\"5\"],\"right_ans\":\"4\"}]', '2', '2024-02-21 06:10:10', '2024-02-21 06:10:10');
 
 -- --------------------------------------------------------
 
@@ -291,7 +278,8 @@ CREATE TABLE `quiz_submissions` (
 --
 
 INSERT INTO `quiz_submissions` (`id`, `student_id`, `quiz_id`, `answers`, `comments`, `marks`, `teachers_feedback`, `created_at`, `updated_at`) VALUES
-('65b4a61c5ad96-stlout-20653058328948510', '65350e1eb853d-stlout-10684209987447268', '6547e0b64fbc0-stlout-94149479298431346', '[{\"question\":\"Excepturi et autem q\",\"option\":[\"Unde sapiente quam e\",\"Qui dolor perspiciat\",\"Ipsum adipisicing te\",\"Iure pariatur Commo\"],\"right_ans\":\"Qui dolor perspiciat\",\"answer\":\"Qui dolor perspiciat\"},{\"question\":\"Nisi expedita nobis\",\"option\":[\"Et sunt et mollitia\",\"Incididunt est quasi\",\"Nemo repellendus Eo\",\"Vel quam tempor fugi\"],\"right_ans\":\"Incididunt est quasi\",\"answer\":\"Et sunt et mollitia\"}]', NULL, '1', NULL, '2024-01-27 06:43:40', '2024-01-27 06:43:40');
+('65d592ffa128e-stlout-27988315583225520', '65350e1eb853d-stlout-10684209987447268', '65d592efc3548-stlout-95711980164680679', '[{\"question\":\"What is one?\",\"option\":[\"1\",\"2\"],\"right_ans\":\"1\",\"answer\":\"1\"},{\"question\":\"What is 2?\",\"option\":[\"2\",\"3\"],\"right_ans\":\"2\",\"answer\":\"2\"}]', NULL, '2', NULL, '2024-02-21 06:06:55', '2024-02-21 06:06:55'),
+('65d593e3a2733-stlout-21533673908673839', '65350e1eb853d-stlout-10684209987447268', '65d593c229380-stlout-47409379579415299', '[{\"question\":\"What is three?\",\"option\":[\"3\",\"4\"],\"right_ans\":\"3\",\"answer\":\"3\"},{\"question\":\"What is four?\",\"option\":[\"4\",\"5\"],\"right_ans\":\"4\",\"answer\":\"5\"}]', NULL, '1', NULL, '2024-02-21 06:10:43', '2024-02-21 06:10:43');
 
 -- --------------------------------------------------------
 
@@ -313,7 +301,7 @@ CREATE TABLE `scr` (
 --
 
 INSERT INTO `scr` (`id`, `student_id`, `course_id`, `verified`, `created_at`, `updated_at`) VALUES
-('6547d64267c49-stlout-45569832707172966', '65350e1eb853d-stlout-10684209987447268', '653746624ea2b-stlout-12896205320286654', 0, '2023-11-05 17:52:02', '2023-11-05 17:52:02');
+('65d583eaee181-stlout-59593874089642896', '65350e1eb853d-stlout-10684209987447268', '65d583daafce6-stlout-91855518025707457', 1, '2024-02-21 05:02:34', '2024-02-21 05:02:44');
 
 -- --------------------------------------------------------
 
