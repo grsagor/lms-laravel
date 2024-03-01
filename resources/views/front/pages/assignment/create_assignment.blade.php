@@ -4,7 +4,7 @@
 @endsection
 @section('content')
     <div class="container">
-        <h1 class="text-center">Assign Task</h1>
+        <h1 class="text-center">Add Assignment</h1>
         <form action="{{ route('store.create.assignment') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <input type="hidden" name="course_id" value="{{ $course_id }}">

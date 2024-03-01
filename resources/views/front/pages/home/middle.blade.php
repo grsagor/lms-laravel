@@ -1,7 +1,7 @@
 @foreach ($posts as $post)
     <div class="card p-3 mb-3">
         <div class="post--top d-flex align-items-center gap-2 mb-3">
-            <div class="post__top--img"><img class="w-100 h-100 object-fit-cover rounded-circle" src="{{ Auth::user()->dp ? asset(Auth::user()->dp) : asset('assets/img/fixed/dp.jpg') }}" alt=""></div>
+            <div class="post__top--img"><img class="w-100 h-100 object-fit-cover rounded-circle" src="{{ $post->user->dp ? asset($post->user->dp) : asset('assets/img/fixed/dp.jpg') }}" alt=""></div>
             <div>
                 <p class="mb-0">{{ $post->user->name }}</p>
                 <small>{{ $post->created_at }}</small>

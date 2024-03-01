@@ -327,3 +327,6 @@ input[type='radio'] {
 .liked:hover {
   background-color: var(--primary-hover-color);
 }
+.active_course {
+  color: #12B76A;
+}

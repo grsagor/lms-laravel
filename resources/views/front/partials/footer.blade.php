@@ -5,7 +5,7 @@
         <div class="row">
 
           <div class="col-lg-3 col-md-6 footer-contact">
-            <h3>LMS</h3>
+            <h3>LearnHub</h3>
             <p>
               A108 Adam Street <br>
               New York, NY 535022<br>
@@ -53,7 +53,7 @@
 
         <div class="me-md-auto text-center text-md-start">
             <div class="copyright">
-                &copy; Copyright <strong><span>LMS</span></strong>. All Rights Reserved
+                &copy; Copyright <strong><span>LearnHub</span></strong>. All Rights Reserved
             </div>
             <div class="credits">
                 Designed by <a href="#">Sagor & Nova</a>

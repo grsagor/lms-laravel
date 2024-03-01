@@ -1,11 +1,15 @@
 @if (Auth::user()->role == 'teacher')
+<div class="d-flex justify-content-between">
+    <p>Course Name:</p>
+    <p class="fw-bold">{{ $course->name }}</p>
+</div>
     <div class="d-flex justify-content-between">
         <p>Course Code:</p>
         <p class="fw-bold">{{ $course->code }}</p>
     </div>
 
     @if (count($requests))
-        <h6>Requests</h6>
+        <h6 class="fw-bold mt-3">Requests</h6>
         @foreach ($requests as $request)
             <div class="row">
                 <div class="col-6">{{ $request->user->name }}</div>

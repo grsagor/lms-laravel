@@ -19,22 +19,23 @@
                 </thead>
             </table>
         @endif
+
+        <p><strong>Title:</strong> {{ $post->assignment->title }}</p>
+        <p><strong>Description: </strong> {!! $post->assignment->description !!}</p>
+
+        <p><strong>Attatchments:</strong></p>
+        @foreach ($files as $file)
+            <a class="btn bg-primary text-white" href="{{ asset($file['path']) }}" target="_blank">{{ $file['name'] }}</a>
+        @endforeach
+
         @if (Auth::user()->role == 'student')
             {{-- Student --}}
-            <p><strong>Title:</strong> {{ $post->assignment->title }}</p>
-            <p><strong>Description: </strong> {!! $post->assignment->description !!}</p>
-
-            <p><strong>Attatchments:</strong></p>
-            @foreach ($files as $file)
-                <a class="btn bg-primary text-white" href="{{ asset($file['path']) }}" target="_blank">{{ $file['name'] }}</a>
-            @endforeach
-
             @if ($assignment_submit)
-            <div>
-                @foreach ($submit_files as $file)
-                    <a href="{{ url($file["path"]) }}" target="_blank">{{ $file["name"] }}</a>
-                @endforeach
-            </div>
+                <div>
+                    @foreach ($submit_files as $file)
+                        <a href="{{ url($file['path']) }}" target="_blank">{{ $file['name'] }}</a>
+                    @endforeach
+                </div>
                 <p>Marks: {{ $assignment_submit->marks ? $assignment_submit->marks : 'Not reviewd' }}</p>
             @else
                 <div>

@@ -17,7 +17,15 @@ class CourseController extends Controller
 {
     public function index()
     {
-        $courses = Course::all();
+        $user = Auth::user();
+        if ($user->role == 'teacher') {
+            $courses = Course::where('teacher_id', $user->id)->get();
+        } else {
+            $courses = Course::whereHas('scr', function($query) use ($user) {
+                $query->where([['student_id', $user->id], ['verified', 1]]);
+            })
+            ->get();
+        }
 
         $data = [
             'courses' => $courses,

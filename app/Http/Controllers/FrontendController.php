@@ -28,7 +28,7 @@ class FrontendController extends Controller
         }
         $courseIds = collect($courses)->pluck('id')->toArray();
 
-        $posts = AllPost::whereIn('course_id',$courseIds)->with(['post', 'assignment', 'quiz', 'user', 'likes'])->get();
+        $posts = AllPost::with(['user', 'post', 'assignment', 'quiz', 'likes'])->whereIn('course_id',$courseIds)->get();
         foreach ($posts as $post) {
             $post->like_count = count($post->likes);
             if (PostLike::where([['user_id', Auth::user()->id], ['post_id', $post->id]])->first()) {
@@ -37,7 +37,6 @@ class FrontendController extends Controller
                 $post->is_liked = 0;
             }
         }
-        // return $posts;
         $data = [
             'posts' => $posts,
         ];

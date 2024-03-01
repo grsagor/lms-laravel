@@ -71,6 +71,7 @@ class QuizController extends Controller
             'quiz' => $quiz,
             'answered' => $answered
         ];
+
         return view('front.pages.quiz.quiz_submit_page', $data);
     }
 
