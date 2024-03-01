@@ -17,8 +17,17 @@ class LoginController extends Controller
             'email' => ['required', 'email'],
             'password' => ['required'],
         ]);
+    
         if (Auth::attempt($credentials, $request->remember)) {
-            return redirect()->intended('/');
+            // Check if the user is verified
+            $user = Auth::user();
+            if ($user->is_verified == 1) {
+                return redirect()->intended('/');
+            } else {
+                // Logout the user
+                Auth::logout();
+                return redirect()->route('login')->with('error', 'Your account is not verified.');
+            }
         }
         return redirect()->route('login')->with('error', 'Invalid credentials.');
     }
