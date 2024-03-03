@@ -53,6 +53,14 @@ class AssignmentController extends Controller
     public function assignimentSubmitPage($id)
     {
         $post = AllPost::where('id', $id)->with(['assignment', 'user'])->first();
+        $currentDateTime = Carbon::now();
+        $expired_at = Carbon::parse($post->assignment->deadline);
+        
+        if ($expired_at->lt($currentDateTime)) {
+            $expired = 1;
+        } else {
+            $expired = 0;
+        }
         $original_files = json_decode($post->assignment->files);
 
         $files = [];
@@ -90,6 +98,7 @@ class AssignmentController extends Controller
             'files' => $files,
             'assignment_submit' => $assignment_submit,
             'submit_files' => $submit_files,
+            'expired' => $expired,
         ];
         return view('front.pages.assignment.assignment_submit_page', $data);
     }

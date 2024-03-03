@@ -57,6 +57,14 @@ class QuizController extends Controller
 
     public function quizSubmitPage($id) {
         $post = AllPost::where('id',$id)->with(['quiz', 'user'])->first();
+        $currentDateTime = Carbon::now();
+        $expired_at = Carbon::parse($post->quiz->deadline);
+        
+        if ($expired_at->lt($currentDateTime)) {
+            $expired = 1;
+        } else {
+            $expired = 0;
+        }
         $quiz = $post->quiz;
         $quiz_submitted = QuizSubmission::where([['quiz_id', $quiz->id], ['student_id', Auth::user()->id]])->first();
         $quiz->quizzes = json_decode($quiz->quizzes);
@@ -69,7 +77,8 @@ class QuizController extends Controller
         // return $quiz_submitted;
         $data = [
             'quiz' => $quiz,
-            'answered' => $answered
+            'answered' => $answered,
+            'expired' => $expired,
         ];
 
         return view('front.pages.quiz.quiz_submit_page', $data);

@@ -37,24 +37,31 @@
                     @endforeach
                 </div>
                 <p>Marks: {{ $assignment_submit->marks ? $assignment_submit->marks : 'Not reviewd' }}</p>
+                <p>Feedback:
+                    {{ $assignment_submit->teachers_feedback ? $assignment_submit->teachers_feedback : 'Not reviewd' }}</p>
             @else
-                <div>
-                    <form action="{{ route('submit.assignment.store') }}" method="POST" enctype="multipart/form-data">
-                        @csrf
-                        <input type="hidden" name="assignment_id" value="{{ $post->assignment->id }}">
-                        <div class="mb-3">
-                            <label for="comments" class="form-label">Comments</label>
-                            <textarea type="text" class="form-control richtext" id="comments" name="comments"></textarea>
-                        </div>
-                        <div class="mb-3 d-flex">
-                            <input type="file" class="d-none" name="files" id="files" onchange="previewFiles()"
-                                multiple>
-                            <label for="files" class="btn border flex-grow-1"><i class="fa-solid fa-file"></i></label>
-                        </div>
-                        <div id="file-preview" class="row"></div>
-                        <button type="submit" class="btn btn-primary">Submit</button>
-                    </form>
-                </div>
+                @if ($expired)
+                    <p class="text-danger">Deadline is expired.</p>
+                @else
+                    <div>
+                        <form action="{{ route('submit.assignment.store') }}" method="POST" enctype="multipart/form-data">
+                            @csrf
+                            <input type="hidden" name="assignment_id" value="{{ $post->assignment->id }}">
+                            <div class="mb-3">
+                                <label for="comments" class="form-label">Comments</label>
+                                <textarea type="text" class="form-control richtext" id="comments" name="comments"></textarea>
+                            </div>
+                            <div class="mb-3 d-flex">
+                                <input type="file" class="d-none" name="files" id="files" onchange="previewFiles()"
+                                    multiple>
+                                <label for="files" class="btn border flex-grow-1"><i
+                                        class="fa-solid fa-file"></i></label>
+                            </div>
+                            <div id="file-preview" class="row"></div>
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </form>
+                    </div>
+                @endif
             @endif
         @endif
 
@@ -80,13 +87,13 @@
                     const file = fileInput.files[i];
                     if (file.type.startsWith('image/')) {
                         const div = document.createElement('div');
-                        div.classList.add('col-3', 'ratio-1x1')
+                        div.classList.add('col-3', 'ratio-1x1', 'mb-3')
                         const html = `<img src="${URL.createObjectURL(file)}" class="img-fluid h-100">`;
                         div.innerHTML = html;
                         filePreview.appendChild(div);
                     } else {
                         const div = document.createElement('div');
-                        div.classList.add('col-12')
+                        div.classList.add('col-12', 'mb-3')
                         const html =
                             `<a class="btn border border-primary w-100" href="${URL.createObjectURL(file)}" target="_blank">${file.name}</a>`;
                         div.innerHTML = html;
