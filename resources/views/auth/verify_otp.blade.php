@@ -1,8 +1,9 @@
 @extends('auth.app')
 @section('title', 'Register')
 @section('content')
+    <h1 class="text-primary">LearnHub</h1>
     <div class="container w-25">
-        <h1>Verify OTP</h1>
+        <h3 class="text-center">Verify OTP</h3>
         <form method="POST" action="{{ route('verify.otp') }}">
             @csrf
             <input type="hidden" name="email" value="{{ $user_email }}">
@@ -16,7 +17,7 @@
             @csrf
             <input type="hidden" name="email" value="{{ $user_email }}">
             <div>
-                Don't receive yet? <button class="btn text-primary" type="submit">Resend OTP</button>.
+                Don't receive yet? <button class="border-0 text-primary" type="submit">Resend OTP</button>.
             </div>
         </form>
     </div>

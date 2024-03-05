@@ -1,15 +1,16 @@
 @extends('auth.app')
 @section('title', 'Register')
 @section('content')
+    <h1 class="text-primary">LearnHub</h1>
     <div class="container w-25">
-        <h1>Register</h1>
+        <h3 class="text-center">Register</h3>
         <form method="POST" action="{{ route('register') }}">
             @csrf
             <div class="row">
                 <div class="form-group col">
                     <label for="name">Name</label>
-                    <input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}" required
-                        autofocus>
+                    <input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}"
+                        required autofocus>
                 </div>
                 <div class="form-group col">
                     <label for="role">Role</label>
@@ -36,7 +37,7 @@
             </div>
             <button type="submit" class="btn btn-primary w-100 mb-3">Register</button>
             <div>
-                Already have an account? <a href="{{ route('login') }}">Click here</a> to login.
+                Already have an account? <a class="text-primary" href="{{ route('login') }}">Click here</a> to login.
             </div>
         </form>
     </div>

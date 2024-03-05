@@ -22,6 +22,7 @@
 
         <p><strong>Title:</strong> {{ $post->assignment->title }}</p>
         <p><strong>Description: </strong> {!! $post->assignment->description !!}</p>
+        <p><strong>Deadline: </strong> {{ \Carbon\Carbon::parse($post->assignment->deadline)->format('g:i A, j F Y') }}</p>
 
         <p><strong>Attatchments:</strong></p>
         @foreach ($files as $file)
@@ -39,6 +40,12 @@
                 <p>Marks: {{ $assignment_submit->marks ? $assignment_submit->marks : 'Not reviewd' }}</p>
                 <p>Feedback:
                     {{ $assignment_submit->teachers_feedback ? $assignment_submit->teachers_feedback : 'Not reviewd' }}</p>
+                <form action="{{ route('resubmit') }}" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    <input type="hidden" name="type" value="assignment">
+                    <input type="hidden" name="id" value="{{ $post->assignment->id }}">
+                    <button class="btn btn-danger" type="submit">Resubmit</button>
+                </form>
             @else
                 @if ($expired)
                     <p class="text-danger">Deadline is expired.</p>

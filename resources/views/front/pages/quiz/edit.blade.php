@@ -1,63 +1,71 @@
 @extends('front.partials.app')
 @section('title')
-    Create Quiz
+    Post Edit
 @endsection
 @section('content')
-<div class="container">
-    <h1 class="text-center">Assign Quiz</h1>
-    <form action="{{ route('store.quiz.question') }}" method="POST" enctype="multipart/form-data">
-        @csrf
-        <input type="hidden" id="question__counter" value="1">
-        <input type="hidden" name="course_id" value="{{ $course_id }}">
+    <div class="row container mx-auto">
+        <form action="{{ route('quiz.update') }}" method="POST" enctype="multipart/form-data">
+            @csrf
+            <input type="hidden" id="question__counter" value="{{ $question__counter }}">
+            <input type="hidden" name="id" value="{{ $all_post->quiz->id }}">
 
-        <div class="mb-3">
-            <label for="title" class="form-label">Title</label>
-            <input type="text" class="form-control" id="title" name="title">
-        </div>
-        <div class="mb-3">
-            <label for="description" class="form-label">Description</label>
-            <textarea type="text" class="form-control richtext" id="description" name="description"></textarea>
-        </div>
-        <div class="mb-3 row">
-            <div class="col-12">
-                <div class="mb-3">
-                    <label for="deadline" class="form-label">Deadline</label>
-                    <input type="datetime-local" class="form-control" id="deadline" name="deadline">
-                </div>
+            <div class="mb-3">
+                <label for="title" class="form-label">Title</label>
+                <input type="text" class="form-control" id="title" name="title"
+                    value="{{ $all_post->quiz->title }}">
             </div>
-        </div>
-        <div id="main__question--container">
-            <div id="question_container--1" class="mb-3">
-                <input type="hidden" id="option__counter--1" value="1">
-                <div class="mb-3">
-                    <label for="question-1" class="form-label">Question</label>
-                    <div class="d-flex">
-                        <input type="text" class="form-control" id="question-1" name="question[]">
-                        <input type="hidden" name="right_ans[]" id="right_ans--1">
-                        <button data-qno="1" class="remove__question--btn btn btn-danger" type="button"><i class="fa-solid fa-trash"></i></button>
+            <div class="mb-3">
+                <label for="description" class="form-label">Description</label>
+                <textarea type="text" class="form-control richtext" id="description" name="description">{!! $all_post->quiz->description !!}</textarea>
+            </div>
+            <div class="mb-3 row">
+                <div class="col-12">
+                    <div class="mb-3">
+                        <label for="deadline" class="form-label">Deadline</label>
+                        <input type="datetime-local" class="form-control" id="deadline" name="deadline"
+                            value="{{ $all_post->quiz->deadline }}">
                     </div>
                 </div>
-                <div id="main_option_container--1">
-                    <div id="option_container--1" class="mb-3">
-                        <label for="option-1-1" class="form-label">Option</label>
-                        <div class="d-flex">
-                            <input type="text" class="form-control" id="option-1-1" name="option[1][]">
-                            <input type="radio" name="right_1" onchange="setRightAnswer('1')">
-                            <button data-qno="1" data-num="1" class="remove__option--btn btn btn-danger" type="button"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div id="main__question--container">
+
+                @foreach ($quizzes as $qi => $quiz)
+                    <div id="question_container--{{ $qi }}" class="mb-3">
+                        <input type="hidden" id="option__counter--{{ $qi }}"
+                            value="{{ $quiz->option__counter }}">
+                        <div class="mb-3">
+                            <label for="question-{{ $qi }}" class="form-label">Question</label>
+                            <div class="d-flex">
+                                <input type="text" class="form-control" id="question-{{ $qi + 1 }}" name="question[]"
+                                    value="{{ $quiz->question }}">
+                                <input type="hidden" name="right_ans[]" id="right_ans--{{ $qi + 1 }}" value="{{ $quiz->right_ans }}">
+                                <button data-qno="{{ $qi }}" class="remove__question--btn" type="button">Remove Question</button>
+                            </div>
                         </div>
+                        <div id="main_option_container--{{ $qi }}">
+                            @foreach ($quiz->option as $oi => $item)
+                                <div id="option_container--{{ $oi }}" class="mb-3">
+                                    <label for="option-{{ $qi }}-{{ $oi }}" class="form-label">Option</label>
+                                    <div class="d-flex">
+                                        <input type="text" class="form-control" id="option-{{ $qi }}-{{ $oi }}" name="option[{{ $qi + 1 }}][]" value="{{ $item }}">
+                                        <input {{ $quiz->right_ans == $item ? 'checked' : '' }} type="radio" name="right_{{ $qi + 1 }}" onchange="setRightAnswer('{{ $qi }}')">
+                                        <button data-qno="{{ $qi }}" data-num="{{ $quiz->option__counter }}" class="remove__option--btn"
+                                            type="button">Remove</button>
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+                        <button data-qno="{{ $qi }}" data-num="{{ $quiz->option__counter }}" class="add__option--btn" type="button">Add Option</button>
                     </div>
-                </div>
-                <button data-qno="1" data-num="1" class="add__option--btn btn btn-success" type="button"><i class="fa-solid fa-plus"></i></button>
+                @endforeach
             </div>
-        </div>
 
-        <div class="d-flex justify-content-between mb-2">
+            <button id="add__question--btn" type="button" class="btn btn-success add__question--btn">Add Question</button>
             <button type="submit" class="btn btn-primary">Submit</button>
-            <button id="add__question--btn" type="button" class="btn btn-success add__question--btn"><i class="fa-solid fa-circle-plus"></i></button>
-        </div>
-    </form>
-</div>
+        </form>
+    </div>
 @endsection
+
 @section('js')
     <script>
         $(document).ready(function() {

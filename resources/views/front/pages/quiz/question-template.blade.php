@@ -5,7 +5,7 @@
         <div class="d-flex">
             <input type="text" class="form-control" id="question-1" name="question[]">
             <input type="hidden" name="right_ans[]" id="right_ans--{{ $q_counter }}">
-            <button data-qno="{{$q_counter}}" class="remove__question--btn" type="button">Remove Question</button>
+            <button data-qno="{{$q_counter}}" class="remove__question--btn btn btn-danger" type="button"><i class="fa-solid fa-trash"></i></button>
         </div>
     </div>
     <div id="main_option_container--{{ $q_counter }}">
@@ -14,10 +14,10 @@
             <div class="d-flex">
                 <input type="text" class="form-control" id="option-1-1" name="option[{{ $q_counter }}][]">
                 <input type="radio" name="right_{{ $q_counter }}" onchange="setRightAnswer('{{ $q_counter }}')">
-                <button data-qno="{{ $q_counter }}" data-num="1" class="remove__option--btn"
-                    type="button">Remove</button>
+                <button data-qno="{{ $q_counter }}" data-num="1" class="remove__option--btn btn btn-danger"
+                    type="button"><i class="fa-solid fa-xmark"></i></button>
             </div>
         </div>
     </div>
-    <button data-qno="{{ $q_counter }}" data-num="1" class="add__option--btn" type="button">Add Option</button>
+    <button data-qno="{{ $q_counter }}" data-num="1" class="add__option--btn btn btn-success" type="button"><i class="fa-solid fa-plus"></i></button>
 </div>

@@ -6,6 +6,7 @@ use App\Helpers\FileHelper;
 use App\Models\AllPost;
 use App\Models\Assignment;
 use App\Models\AssignmentSubmission;
+use App\Models\QuizSubmission;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -55,7 +56,7 @@ class AssignmentController extends Controller
         $post = AllPost::where('id', $id)->with(['assignment', 'user'])->first();
         $currentDateTime = Carbon::now();
         $expired_at = Carbon::parse($post->assignment->deadline);
-        
+
         if ($expired_at->lt($currentDateTime)) {
             $expired = 1;
         } else {
@@ -84,7 +85,7 @@ class AssignmentController extends Controller
                 $filePath = $file;
                 $filename = pathinfo($filePath, PATHINFO_BASENAME);
                 $extension = pathinfo($filename, PATHINFO_EXTENSION);
-    
+
                 $submit_files[] = [
                     'path' => $file,
                     'name' => FileHelper::getOriginalFilename($filename),
@@ -102,7 +103,6 @@ class AssignmentController extends Controller
         ];
         return view('front.pages.assignment.assignment_submit_page', $data);
     }
-
     public function assignimentSubmitStore(Request $request)
     {
         $assignment = new AssignmentSubmission();
@@ -196,5 +196,62 @@ class AssignmentController extends Controller
         }
 
         return response()->json($response);
+    }
+
+    public function edit($id)
+    {
+        $all_post = AllPost::with('assignment')->find($id);
+        $files = [];
+        $original_files = json_decode($all_post->assignment->files);
+        foreach ($original_files as $file) {
+            $filePath = $file;
+            $filename = pathinfo($filePath, PATHINFO_BASENAME);
+            $extension = pathinfo($filename, PATHINFO_EXTENSION);
+
+            $files[] = [
+                'path' => $file,
+                'name' => FileHelper::getOriginalFilename($filename),
+                'extension' => $extension
+            ];
+        }
+        $data = [
+            'all_post' => $all_post,
+            'files' => $files,
+        ];
+        // return $all_post;
+        return view('front.pages.assignment.edit', $data);
+    }
+
+    public function update(Request $request)
+    {
+        $assignment = Assignment::find($request->id);
+
+        $assignment->title = $request->title;
+        $assignment->description = $request->description;
+        $assignment->total_marks = $request->total_marks;
+        $assignment->deadline = Carbon::parse($request->deadline)->format('Y-m-d H:i:s');
+
+        if ($request->file('files')) {
+            foreach (json_decode($assignment->files) as $file) {
+                if (file_exists(public_path($file))) {
+                    unlink(public_path($file));
+                }
+            }
+            $assignment->files = FileHelper::saveFiles($request->file('files'));
+        }
+        $assignment->save();
+        AssignmentSubmission::where('assignment_id', $assignment->id)->delete();
+        return redirect(route('home'))->with('success', 'Assignment updated successfully.');
+    }
+
+    public function resubmit(Request $request) {
+        $user = Auth::user();
+        if ($request->type == 'assignment') {
+            AssignmentSubmission::where([['student_id', $user->id], ['assignment_id', $request->id]])->delete();
+        }
+        if ($request->type == 'quiz') {
+            QuizSubmission::where([['student_id', $user->id], ['quiz_id', $request->id]])->delete();
+        }
+        return back()->with('success', 'Resubmit now.');
     }
 }

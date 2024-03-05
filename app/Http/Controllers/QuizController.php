@@ -22,6 +22,7 @@ class QuizController extends Controller
     }
 
     public function storeQuiz(Request $request) {
+        // return $request;
         $quizzes = [];
 
         foreach ($request->question as $index => $value) {
@@ -205,5 +206,47 @@ class QuizController extends Controller
         }
 
         return response()->json($response);
+    }
+
+    public function edit($id)
+    {
+        $all_post = AllPost::with('quiz')->find($id);
+        $quizzes = json_decode($all_post->quiz->quizzes);
+        foreach ($quizzes as $quiz) {
+            $quiz->option__counter = count($quiz->option);
+        }
+        $question__counter = count($quizzes);
+        $data = [
+            'all_post' => $all_post,
+            'quizzes' => $quizzes,
+            'question__counter' => $question__counter,
+        ];
+        // return $quizzes;
+        return view('front.pages.quiz.edit', $data);
+    }
+
+    public function update(Request $request)
+    {
+        // return $request;
+        $quizzes = [];
+
+        foreach ($request->question as $index => $value) {
+            $quiz = [
+                'question' => $value,
+                'option' => $request->option[$index + 1],
+                'right_ans' => $request->right_ans[$index],
+            ];
+            $quizzes[] = $quiz;        
+        }
+        $quiz = Quiz::find($request->id);
+
+        $quiz->title = $request->title;
+        $quiz->description = $request->description;
+        $quiz->total_marks = count($request->question);
+        $quiz->quizzes = json_encode($quizzes);
+        $quiz->deadline = Carbon::parse($request->deadline)->format('Y-m-d H:i:s');
+        $quiz->save();
+        QuizSubmission::where('quiz_id', $quiz->id)->delete();
+        return redirect(route('home'))->with('success', 'Quiz updated successfully.');
     }
 }

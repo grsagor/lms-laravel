@@ -30,6 +30,8 @@ Route::middleware(['auth'])->group(function() {
         Route::post('/courses', 'createCourse')->name('create.course');
         Route::get('/course/{id}', 'singleCoursePage')->name('single.course.page');
         Route::get('/joining/request/action', 'joiningRequestAction')->name('joining.request.action');
+        Route::post('/course/delete', 'delete')->name('course.delete');
+        Route::post('/kick/student', 'kickStudent')->name('kick.student');
     });
 
     Route::controller(PostController::class)->group(function() {
@@ -37,6 +39,9 @@ Route::middleware(['auth'])->group(function() {
         Route::post('/post-like-store', 'postLikeStore')->name('post.like.store');
         Route::get('/post/details/{id}', 'postDetails')->name('post.details');
         Route::post('/post/comment/store', 'postCommentStore')->name('post.comment.store');
+        Route::get('/post/edit/{id}', 'edit')->name('post.edit');
+        Route::post('/post/update', 'update')->name('post.update');
+        Route::post('/post/delete', 'delete')->name('post.delete');
     });
 
     Route::controller(AssignmentController::class)->group(function() {
@@ -51,6 +56,10 @@ Route::middleware(['auth'])->group(function() {
 
         Route::post('assignment/review/update', 'assignmentReviewUpdate')->name('assignment.review.update');
         Route::post('teacher/assignment/submission/delete', 'teacherAssignmentSubmissionDelete')->name('teacher.assignment.submission.delete');
+
+        Route::get('/assignment/edit/{id}', 'edit')->name('assignment.edit');
+        Route::post('/assignment/update', 'update')->name('assignment.update');
+        Route::post('/resubmit', 'resubmit')->name('resubmit');
     });
 
     Route::controller(QuizController::class)->group(function() {
@@ -68,6 +77,9 @@ Route::middleware(['auth'])->group(function() {
 
         Route::post('quiz/review/update', 'assignmentReviewUpdate')->name('teacher.quiz.review.update');
         Route::post('teacher/quiz/submission/delete', 'teacherAssignmentSubmissionDelete')->name('teacher.quiz.submission.delete');
+
+        Route::get('/quiz/edit/{id}', 'edit')->name('quiz.edit');
+        Route::post('/quiz/update', 'update')->name('quiz.update');
     });
 });
 

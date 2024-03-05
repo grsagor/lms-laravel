@@ -18,6 +18,17 @@
 @section('js')
     <script>
         function handleLike(button, post_id) {
+            var isLiked = $(button).hasClass('liked');
+            var countContainer = $(button).find('.count_container');
+            var count = parseInt(countContainer.text());
+            if (isLiked) {
+                count--;
+            } else {
+                count++;
+            }
+
+            countContainer.text(count);
+
             $(button).toggleClass('liked disliked');
             $.ajax({
                 headers: {

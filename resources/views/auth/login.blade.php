@@ -1,6 +1,7 @@
 @extends('auth.app')
 @section('title', 'Login')    
 @section('content')
+<h1 class="text-primary">LearnHub</h1>
 <div class="container w-25">
     <h3 class="text-center">Login</h3>
     <form method="POST" action="{{ route('login') }}">
@@ -15,7 +16,7 @@
         </div>
         <button type="submit" class="btn btn-primary w-100 mb-3">Login</button>
         <div>
-            Don't have any account? <a href="{{ route('register') }}">Click here</a> to register.
+            Don't have any account? <a class="text-primary" href="{{ route('register') }}">Click here</a> to register.
         </div>
     </form>
 </div>

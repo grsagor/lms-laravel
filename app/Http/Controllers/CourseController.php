@@ -54,12 +54,17 @@ class CourseController extends Controller
             $student = new SCR();
 
             $student->student_id = Auth::user()->id;
-            $student->course_id = Course::where('code', $request->code)->first()->id;
+            $course = Course::where('code', $request->code)->first();
+            if ($course) {
+                $student->course_id = $course->id;
+            } else {
+                return back()->with('error', 'No course found.');
+            }
 
             $result = $student->save();
 
             if ($result) {
-                return back()->with('success', 'Joined');
+                return back()->with('success', 'Request has sent');
             } else {
                 return back()->with('error', 'Unsuccessful');
             }
@@ -69,7 +74,9 @@ class CourseController extends Controller
     public function singleCoursePage($id) {
         $course = Course::find($id);
 
-        $posts = AllPost::where('course_id',$id)->with(['post', 'assignment', 'quiz', 'user', 'likes'])->get();
+        $students = SCR::where([['course_id', $id], ['verified', 1]])->get();
+
+        $posts = AllPost::where('course_id',$id)->with(['post', 'assignment', 'quiz', 'user', 'likes'])->orderBy('created_at', 'desc')->get();
 
         foreach ($posts as $post) {
             $post->like_count = count($post->likes);
@@ -124,6 +131,7 @@ class CourseController extends Controller
             'requests' => $requests,
             'assignment_stats' => $assignment_stats,
             'quiz_stats' => $quiz_stats,
+            'students' => $students,
         ];
 
         return view('front.pages.courses.single_course', $data);
@@ -143,5 +151,22 @@ class CourseController extends Controller
             $response["message"] = "Canceled";
         }
         return response()->json($response);
+    }
+    public function delete(Request $request) {
+        $user = Auth::user();
+        $course_id = $request->id;
+        if ($user->role == 'teacher') {
+            $course = Course::find($course_id);
+            $scr = SCR::where('course_id', $course_id)->delete();
+            $course->delete();
+            return redirect('/')->with('success', 'Course deleted successfully.');
+        } else {
+            SCR::where([['student_id', $user->id], ['course_id', $course_id]])->delete();
+            return redirect('/')->with('success', 'You left the course successfully.');
+        }
+    }
+    public function kickStudent(Request $request) {
+        SCR::where([['student_id', $request->student_id], ['course_id', $request->course_id]])->delete();
+        return back()->with('success', 'You kick the student out.');
     }
 }
