@@ -67,14 +67,6 @@
 
                 @if (!$expired)
                     <button class="btn btn-primary {{ $answered ? 'd-none' : '' }}">Submit</button>
-                    @if ($answered)
-                    <form action="{{ route('resubmit') }}" method="POST" enctype="multipart/form-data">
-                        @csrf
-                        <input type="hidden" name="type" value="quiz">
-                        <input type="hidden" name="id" value="{{ $post->assignment->id }}">
-                        <button class="btn btn-danger" type="submit">Resubmit</button>
-                    </form>
-                    @endif
                 @endif
 
                 <p class="{{ $answered ? 'd-block' : 'd-none' }}">Your mark: <strong>{{ $quiz->marks }}</strong></p>
@@ -83,6 +75,15 @@
                     <p class="text-danger">Deadline is expired.</p>
                 @endif
             </form>
+
+            @if ($answered && !$expired)
+            <form action="{{ route('resubmit') }}" method="POST" enctype="multipart/form-data">
+                @csrf
+                <input type="hidden" name="type" value="quiz">
+                <input type="hidden" name="id" value="{{ $quiz->id }}">
+                <button class="btn btn-danger" type="submit">Resubmit</button>
+            </form>
+            @endif
         @endif
 
     </div>

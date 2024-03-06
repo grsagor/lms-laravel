@@ -39,7 +39,7 @@
                                 <input type="text" class="form-control" id="question-{{ $qi + 1 }}" name="question[]"
                                     value="{{ $quiz->question }}">
                                 <input type="hidden" name="right_ans[]" id="right_ans--{{ $qi + 1 }}" value="{{ $quiz->right_ans }}">
-                                <button data-qno="{{ $qi }}" class="remove__question--btn" type="button">Remove Question</button>
+                                <button data-qno="{{ $qi }}" class="remove__question--btn btn btn-danger" type="button"><i class="fa-solid fa-trash"></i></button>
                             </div>
                         </div>
                         <div id="main_option_container--{{ $qi }}">
@@ -48,19 +48,19 @@
                                     <label for="option-{{ $qi }}-{{ $oi }}" class="form-label">Option</label>
                                     <div class="d-flex">
                                         <input type="text" class="form-control" id="option-{{ $qi }}-{{ $oi }}" name="option[{{ $qi + 1 }}][]" value="{{ $item }}">
-                                        <input {{ $quiz->right_ans == $item ? 'checked' : '' }} type="radio" name="right_{{ $qi + 1 }}" onchange="setRightAnswer('{{ $qi }}')">
-                                        <button data-qno="{{ $qi }}" data-num="{{ $quiz->option__counter }}" class="remove__option--btn"
-                                            type="button">Remove</button>
+                                        <input {{ $quiz->right_ans == $item ? 'checked' : '' }} type="radio" name="right_{{ $qi + 1 }}" onchange="setRightAnswer('{{ $qi + 1 }}')">
+                                        <button data-qno="{{ $qi }}" data-num="{{ $quiz->option__counter }}" class="remove__option--btn btn btn-danger"
+                                            type="button"><i class="fa-solid fa-xmark"></i></button>
                                     </div>
                                 </div>
                             @endforeach
                         </div>
-                        <button data-qno="{{ $qi }}" data-num="{{ $quiz->option__counter }}" class="add__option--btn" type="button">Add Option</button>
+                        <button data-qno="{{ $qi }}" data-num="{{ $quiz->option__counter }}" class="btn btn-success add__option--btn" type="button"><i class="fa-solid fa-plus"></i></button>
                     </div>
                 @endforeach
             </div>
 
-            <button id="add__question--btn" type="button" class="btn btn-success add__question--btn">Add Question</button>
+            <button id="add__question--btn" type="button" class="btn btn-success add__question--btn"><i class="fa-solid fa-circle-plus"></i></button>
             <button type="submit" class="btn btn-primary">Submit</button>
         </form>
     </div>

@@ -50,20 +50,20 @@
             if (fileInput.files.length > 0) {
                 for (let i = 0; i < fileInput.files.length; i++) {
                     const file = fileInput.files[i];
-                    if (file.type.startsWith('image/')) {
-                        const div = document.createElement('div');
-                        div.classList.add('col-3', 'ratio-1x1', 'mb-3')
-                        const html = `<img src="${URL.createObjectURL(file)}" class="img-fluid h-100">`;
-                        div.innerHTML = html;
-                        filePreview.appendChild(div);
-                    } else {
+                    // if (file.type.startsWith('image/')) {
+                    //     const div = document.createElement('div');
+                    //     div.classList.add('col-3', 'ratio-1x1', 'mb-3')
+                    //     const html = `<img src="${URL.createObjectURL(file)}" class="img-fluid h-100">`;
+                    //     div.innerHTML = html;
+                    //     filePreview.appendChild(div);
+                    // } else {
                         const div = document.createElement('div');
                         div.classList.add('col-12', 'mb-3')
                         const html =
                             `<a class="btn border border-primary w-100" href="${URL.createObjectURL(file)}" target="_blank">${file.name}</a>`;
                         div.innerHTML = html;
                         filePreview.appendChild(div);
-                    }
+                    // }
                 }
             }
         }

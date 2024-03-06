@@ -227,7 +227,6 @@ class QuizController extends Controller
 
     public function update(Request $request)
     {
-        // return $request;
         $quizzes = [];
 
         foreach ($request->question as $index => $value) {
