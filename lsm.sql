@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 01, 2024 at 11:30 PM
+-- Generation Time: Mar 06, 2024 at 04:15 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.1.17
 
@@ -42,10 +42,13 @@ CREATE TABLE `all_posts` (
 --
 
 INSERT INTO `all_posts` (`id`, `user_id`, `post_id`, `course_id`, `post_type`, `created_at`, `updated_at`) VALUES
-(1, '1', '1', '3', 'normal', '2024-03-01 18:05:54', '2024-03-01 18:05:54'),
-(2, '1', '3', '3', 'normal', '2024-03-01 18:54:14', '2024-03-01 18:54:14'),
-(3, '1', '1', '3', 'assignment', '2024-03-01 19:07:20', '2024-03-01 19:07:20'),
-(5, '1', '2', '3', 'quiz', '2024-03-01 19:39:52', '2024-03-01 19:39:52');
+(8, '1', '6', '3', 'normal', '2024-03-05 20:38:39', '2024-03-05 20:38:39'),
+(10, '1', '3', '3', 'quiz', '2024-03-05 21:01:54', '2024-03-05 21:01:54'),
+(11, '1', '7', '1', 'normal', '2024-03-05 21:04:43', '2024-03-05 21:04:43'),
+(12, '1', '8', '4', 'normal', '2024-03-06 02:32:39', '2024-03-06 02:32:39'),
+(13, '1', '4', '4', 'quiz', '2024-03-06 02:34:26', '2024-03-06 02:34:26'),
+(14, '1', '3', '4', 'assignment', '2024-03-06 02:36:48', '2024-03-06 02:36:48'),
+(15, '1', '9', '3', 'normal', '2024-03-06 02:54:51', '2024-03-06 02:54:51');
 
 -- --------------------------------------------------------
 
@@ -71,7 +74,7 @@ CREATE TABLE `assignments` (
 --
 
 INSERT INTO `assignments` (`id`, `user_id`, `course_id`, `title`, `files`, `description`, `deadline`, `total_marks`, `created_at`, `updated_at`) VALUES
-(1, '1', '3', 'Midterm Assignment', '[\"\\/upload\\/65e22768359a5[]Assignment-1.pdf\"]', '<p><font color=\"#3c4043\" face=\"Roboto, Arial, sans-serif\"><span style=\"font-size: 14px; letter-spacing: 0.2px;\">Submit assignment in time.</span></font></p><p><font color=\"#3c4043\" face=\"Roboto, Arial, sans-serif\"><span style=\"font-size: 14px; letter-spacing: 0.2px;\">Don\'t copy.</span></font></p>', '2024-03-14 17:59:00', '5', '2024-03-01 19:07:20', '2024-03-01 19:07:20');
+(3, '1', '4', 'First Assignment', '[\"\\/upload\\/65e7d6c0c21b1[]CSE-335, DC, Assignment 01.pdf\"]', '<p>please submit tiimely.</p>', '2024-03-07 02:38:00', '10', '2024-03-06 02:36:48', '2024-03-06 02:42:58');
 
 -- --------------------------------------------------------
 
@@ -90,13 +93,6 @@ CREATE TABLE `assignment_submissions` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `assignment_submissions`
---
-
-INSERT INTO `assignment_submissions` (`id`, `student_id`, `assignment_id`, `files`, `comments`, `marks`, `teachers_feedback`, `created_at`, `updated_at`) VALUES
-(1, '6', '1', '[\"\\/upload\\/65e2343c69a90[]Sagor.pdf\"]', 'CSE06907989', '4', 'Brilliant', '2024-03-01 20:02:04', '2024-03-01 20:06:14');
 
 -- --------------------------------------------------------
 
@@ -134,7 +130,6 @@ CREATE TABLE `courses` (
 --
 
 INSERT INTO `courses` (`id`, `code`, `name`, `teacher_id`, `students`, `created_at`, `updated_at`) VALUES
-(1, 'tOg424', 'Machine Learning', '1', NULL, '2024-03-01 17:48:51', '2024-03-01 17:48:51'),
 (2, 'WK1091', 'Advance Programming', '1', NULL, '2024-03-01 17:49:31', '2024-03-01 17:49:31'),
 (3, 'ohi136', 'Data Mining and Knowledge Discovery', '1', NULL, '2024-03-01 17:51:41', '2024-03-01 17:51:41');
 
@@ -193,8 +188,10 @@ CREATE TABLE `posts` (
 --
 
 INSERT INTO `posts` (`id`, `user_id`, `course_id`, `post`, `posted_date`, `posted_time`, `post_type`, `files`, `created_at`, `updated_at`) VALUES
-(1, '1', '3', '<p>Welcome to <b>DMKD</b> course! Let\'s engage, learn, and grow together. Your active participation is key to&nbsp; success.<br></p>', '02 March, 2024', '12:05 AM', NULL, '[]', '2024-03-01 18:05:54', '2024-03-01 18:05:54'),
-(3, '1', '3', '<p><span style=\"color: rgba(0, 0, 0, 0.87); font-family: Roboto, Helvetica, Arial, sans-serif; font-size: 13px;\">Dear&nbsp; students</span><br style=\"-webkit-tap-highlight-color: transparent; color: rgba(0, 0, 0, 0.87); font-family: Roboto, Helvetica, Arial, sans-serif; font-size: 13px;\"><span style=\"color: rgba(0, 0, 0, 0.87); font-family: Roboto, Helvetica, Arial, sans-serif; font-size: 13px;\">This is the Lecture note of Intersection points.</span><br style=\"-webkit-tap-highlight-color: transparent; color: rgba(0, 0, 0, 0.87); font-family: Roboto, Helvetica, Arial, sans-serif; font-size: 13px;\"><br></p>', '02 March, 2024', '12:54 AM', NULL, '[\"\\/upload\\/65e22455c18f3[]lecture-1.pdf\"]', '2024-03-01 18:54:13', '2024-03-01 18:54:13');
+(6, '1', '3', '<p><b style=\"-webkit-tap-highlight-color: transparent; color: rgba(0, 0, 0, 0.87); font-family: Roboto, Helvetica, Arial, sans-serif; font-size: 13px;\"><u style=\"-webkit-tap-highlight-color: transparent;\">Contact Information:&nbsp;</u></b><br style=\"-webkit-tap-highlight-color: transparent; color: rgba(0, 0, 0, 0.87); font-family: Roboto, Helvetica, Arial, sans-serif; font-size: 13px;\"><b style=\"-webkit-tap-highlight-color: transparent; color: rgba(0, 0, 0, 0.87); font-family: Roboto, Helvetica, Arial, sans-serif; font-size: 13px;\">Name: Lomat Haidar Chowdhury</b><br style=\"-webkit-tap-highlight-color: transparent; color: rgba(0, 0, 0, 0.87); font-family: Roboto, Helvetica, Arial, sans-serif; font-size: 13px;\"><b style=\"-webkit-tap-highlight-color: transparent; color: rgba(0, 0, 0, 0.87); font-family: Roboto, Helvetica, Arial, sans-serif; font-size: 13px;\">Email Id:</b><span style=\"color: rgba(0, 0, 0, 0.87); font-family: Roboto, Helvetica, Arial, sans-serif; font-size: 13px;\">&nbsp;</span><a target=\"_blank\" href=\"https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to=tabassumwaishy%40stamforduniversity.edu.bd&amp;authuser=0\" style=\"-webkit-tap-highlight-color: transparent; text-decoration: none; color: rgb(41, 98, 255); font-family: Roboto, Helvetica, Arial, sans-serif; font-size: 13px; font-weight: 400; background-color: rgb(255, 255, 255);\">lomat@stamforduniversity.edu.bd</a><span style=\"color: rgba(0, 0, 0, 0.87); font-family: Roboto, Helvetica, Arial, sans-serif; font-size: 13px;\">&nbsp;or&nbsp;</span><a target=\"_blank\" href=\"https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to=tabassumwaishy%40gmai.com&amp;authuser=0\" style=\"-webkit-tap-highlight-color: transparent; text-decoration: none; color: rgb(41, 98, 255); font-family: Roboto, Helvetica, Arial, sans-serif; font-size: 13px; font-weight: 400; background-color: rgb(255, 255, 255);\">lomat@gmai.com</a><span style=\"color: rgba(0, 0, 0, 0.87); font-family: Roboto, Helvetica, Arial, sans-serif; font-size: 13px;\">&nbsp;</span><br style=\"-webkit-tap-highlight-color: transparent; color: rgba(0, 0, 0, 0.87); font-family: Roboto, Helvetica, Arial, sans-serif; font-size: 13px;\"><b style=\"-webkit-tap-highlight-color: transparent; color: rgba(0, 0, 0, 0.87); font-family: Roboto, Helvetica, Arial, sans-serif; font-size: 13px;\">Contact Number:</b><span style=\"color: rgba(0, 0, 0, 0.87); font-family: Roboto, Helvetica, Arial, sans-serif; font-size: 13px;\">&nbsp;01*********</span><br></p>', '06 March, 2024', '02:38 AM', NULL, '[]', '2024-03-05 20:38:39', '2024-03-05 20:38:39'),
+(7, '1', '1', '<p>hi</p>', '06 March, 2024', '03:04 AM', NULL, '[]', '2024-03-05 21:04:43', '2024-03-05 21:04:43'),
+(8, '1', '4', '<p>Welcome to descrete math course. Thank you.</p>', '06 March, 2024', '08:32 AM', NULL, '[]', '2024-03-06 02:32:39', '2024-03-06 02:32:56'),
+(9, '1', '3', '<p>this is our logo.</p>', '06 March, 2024', '08:54 AM', NULL, '[\"\\/upload\\/65e7dafb74ac0[]abc.png\"]', '2024-03-06 02:54:51', '2024-03-06 02:54:51');
 
 -- --------------------------------------------------------
 
@@ -209,6 +206,15 @@ CREATE TABLE `post_likes` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `post_likes`
+--
+
+INSERT INTO `post_likes` (`id`, `user_id`, `post_id`, `created_at`, `updated_at`) VALUES
+(4, '1', '3', '2024-03-05 16:40:21', '2024-03-05 16:40:21'),
+(10, '1', '12', '2024-03-06 02:33:00', '2024-03-06 02:33:00'),
+(11, '20', '12', '2024-03-06 02:33:06', '2024-03-06 02:33:06');
 
 -- --------------------------------------------------------
 
@@ -233,7 +239,8 @@ CREATE TABLE `quizzes` (
 --
 
 INSERT INTO `quizzes` (`id`, `user_id`, `title`, `description`, `deadline`, `quizzes`, `total_marks`, `created_at`, `updated_at`) VALUES
-(2, '1', 'Class Test-1', NULL, '2024-03-07 17:59:00', '[{\"question\":\"In Data Mining and Knowledge Discovery (DMKD), which technique involves identifying patterns in large datasets?\",\"option\":[\"Regression analysis\",\"Clustering\",\"Decision trees\",\"Linear programming\"],\"right_ans\":\"Linear programming\"},{\"question\":\"What is the primary goal of data preprocessing in DMKD?\",\"option\":[\"To reduce the size of the dataset\",\"To increase data quality\",\"To remove outliers from the dataset\",\"To create visualizations of the data\"],\"right_ans\":\"To reduce the size of the dataset\"},{\"question\":\"Which of the following is not a commonly used algorithm for association rule mining in DMKD?\",\"option\":[\"Apriori algorithm\",\"FP-growth algorithm\",\"K-means algorithm\",\"Eclat algorithm\"],\"right_ans\":\"FP-growth algorithm\"},{\"question\":\"Which evaluation metric is commonly used to assess the performance of classification algorithms in DMKD?\",\"option\":[\"Mean Absolute Error (MAE)\",\"Root Mean Squared Error (RMSE)\",\"F1 Score\",\"R-squared value\"],\"right_ans\":\"R-squared value\"},{\"question\":\"In DMKD, which technique is used for dimensionality reduction by transforming the original variables into a new set of variables?\",\"option\":[\"Principal Component Analysis (PCA)\",\"K-nearest neighbors (KNN)\",\"Support Vector Machines (SVM)\",\"Gradient Boosting Machines (GBM)\"],\"right_ans\":\"Support Vector Machines (SVM)\"}]', '5', '2024-03-01 19:39:52', '2024-03-01 19:39:52');
+(3, '1', 'Computer Graphics Quiz', '<p>please submit in time.</p>', '2024-03-07 21:00:00', '[{\"question\":\"What does RGB stand for in computer graphics?\",\"option\":[\"Red, Green, Blue\",\"Realistic Graphics Buffer\",\"Random Gradient Buffer\",\"Rendered Graphical Background\"],\"right_ans\":\"Random Gradient Buffer\"},{\"question\":\"Which of the following is NOT a 3D primitive used in computer graphics?\",\"option\":[\"Cube\",\"Rectangle\",\"Cylinder\",\"Sphere\"],\"right_ans\":\"Rectangle\"},{\"question\":\"what is two?\",\"option\":[\"1\",\"2\"],\"right_ans\":\"2\"}]', '3', '2024-03-05 21:01:54', '2024-03-06 02:51:27'),
+(4, '1', 'First Quiz', '<p>Please submit it timely.</p>', '2024-03-07 06:41:00', '[{\"question\":\"What is one?\",\"option\":[\"1\",\"2\"],\"right_ans\":\"1\"},{\"question\":\"What is two?\",\"option\":[\"2\",\"3\"],\"right_ans\":\"2\"}]', '2', '2024-03-06 02:34:26', '2024-03-06 02:37:49');
 
 -- --------------------------------------------------------
 
@@ -258,9 +265,7 @@ CREATE TABLE `quiz_submissions` (
 --
 
 INSERT INTO `quiz_submissions` (`id`, `student_id`, `quiz_id`, `answers`, `comments`, `marks`, `teachers_feedback`, `created_at`, `updated_at`) VALUES
-(1, '6', '2', '[{\"question\":\"In Data Mining and Knowledge Discovery (DMKD), which technique involves identifying patterns in large datasets?\",\"option\":[\"Regression analysis\",\"Clustering\",\"Decision trees\",\"Linear programming\"],\"right_ans\":\"Linear programming\",\"answer\":\"Decision trees\"},{\"question\":\"What is the primary goal of data preprocessing in DMKD?\",\"option\":[\"To reduce the size of the dataset\",\"To increase data quality\",\"To remove outliers from the dataset\",\"To create visualizations of the data\"],\"right_ans\":\"To reduce the size of the dataset\",\"answer\":\"To increase data quality\"},{\"question\":\"Which of the following is not a commonly used algorithm for association rule mining in DMKD?\",\"option\":[\"Apriori algorithm\",\"FP-growth algorithm\",\"K-means algorithm\",\"Eclat algorithm\"],\"right_ans\":\"FP-growth algorithm\",\"answer\":\"K-means algorithm\"},{\"question\":\"Which evaluation metric is commonly used to assess the performance of classification algorithms in DMKD?\",\"option\":[\"Mean Absolute Error (MAE)\",\"Root Mean Squared Error (RMSE)\",\"F1 Score\",\"R-squared value\"],\"right_ans\":\"R-squared value\",\"answer\":\"F1 Score\"},{\"question\":\"In DMKD, which technique is used for dimensionality reduction by transforming the original variables into a new set of variables?\",\"option\":[\"Principal Component Analysis (PCA)\",\"K-nearest neighbors (KNN)\",\"Support Vector Machines (SVM)\",\"Gradient Boosting Machines (GBM)\"],\"right_ans\":\"Support Vector Machines (SVM)\",\"answer\":\"Gradient Boosting Machines (GBM)\"}]', NULL, '0', NULL, '2024-03-01 20:09:32', '2024-03-01 20:09:32'),
-(2, '8', '2', '[{\"question\":\"In Data Mining and Knowledge Discovery (DMKD), which technique involves identifying patterns in large datasets?\",\"option\":[\"Regression analysis\",\"Clustering\",\"Decision trees\",\"Linear programming\"],\"right_ans\":\"Linear programming\",\"answer\":\"Clustering\"},{\"question\":\"What is the primary goal of data preprocessing in DMKD?\",\"option\":[\"To reduce the size of the dataset\",\"To increase data quality\",\"To remove outliers from the dataset\",\"To create visualizations of the data\"],\"right_ans\":\"To reduce the size of the dataset\",\"answer\":\"To create visualizations of the data\"},{\"question\":\"Which of the following is not a commonly used algorithm for association rule mining in DMKD?\",\"option\":[\"Apriori algorithm\",\"FP-growth algorithm\",\"K-means algorithm\",\"Eclat algorithm\"],\"right_ans\":\"FP-growth algorithm\",\"answer\":\"K-means algorithm\"},{\"question\":\"Which evaluation metric is commonly used to assess the performance of classification algorithms in DMKD?\",\"option\":[\"Mean Absolute Error (MAE)\",\"Root Mean Squared Error (RMSE)\",\"F1 Score\",\"R-squared value\"],\"right_ans\":\"R-squared value\",\"answer\":\"Root Mean Squared Error (RMSE)\"},{\"question\":\"In DMKD, which technique is used for dimensionality reduction by transforming the original variables into a new set of variables?\",\"option\":[\"Principal Component Analysis (PCA)\",\"K-nearest neighbors (KNN)\",\"Support Vector Machines (SVM)\",\"Gradient Boosting Machines (GBM)\"],\"right_ans\":\"Support Vector Machines (SVM)\",\"answer\":\"Principal Component Analysis (PCA)\"}]', NULL, '0', NULL, '2024-03-01 20:26:05', '2024-03-01 20:26:05'),
-(3, '12', '2', '[{\"question\":\"In Data Mining and Knowledge Discovery (DMKD), which technique involves identifying patterns in large datasets?\",\"option\":[\"Regression analysis\",\"Clustering\",\"Decision trees\",\"Linear programming\"],\"right_ans\":\"Linear programming\",\"answer\":\"Linear programming\"},{\"question\":\"What is the primary goal of data preprocessing in DMKD?\",\"option\":[\"To reduce the size of the dataset\",\"To increase data quality\",\"To remove outliers from the dataset\",\"To create visualizations of the data\"],\"right_ans\":\"To reduce the size of the dataset\",\"answer\":\"To reduce the size of the dataset\"},{\"question\":\"Which of the following is not a commonly used algorithm for association rule mining in DMKD?\",\"option\":[\"Apriori algorithm\",\"FP-growth algorithm\",\"K-means algorithm\",\"Eclat algorithm\"],\"right_ans\":\"FP-growth algorithm\",\"answer\":\"FP-growth algorithm\"},{\"question\":\"Which evaluation metric is commonly used to assess the performance of classification algorithms in DMKD?\",\"option\":[\"Mean Absolute Error (MAE)\",\"Root Mean Squared Error (RMSE)\",\"F1 Score\",\"R-squared value\"],\"right_ans\":\"R-squared value\",\"answer\":\"F1 Score\"},{\"question\":\"In DMKD, which technique is used for dimensionality reduction by transforming the original variables into a new set of variables?\",\"option\":[\"Principal Component Analysis (PCA)\",\"K-nearest neighbors (KNN)\",\"Support Vector Machines (SVM)\",\"Gradient Boosting Machines (GBM)\"],\"right_ans\":\"Support Vector Machines (SVM)\",\"answer\":\"Gradient Boosting Machines (GBM)\"}]', NULL, '3', NULL, '2024-03-01 20:27:41', '2024-03-01 20:27:41');
+(13, '20', '4', '[{\"question\":\"What is one?\",\"option\":[\"1\",\"2\"],\"right_ans\":\"1\",\"answer\":\"1\"},{\"question\":\"What is two?\",\"option\":[\"2\",\"3\"],\"right_ans\":\"2\",\"answer\":\"3\"}]', NULL, '1', NULL, '2024-03-06 02:42:20', '2024-03-06 02:42:20');
 
 -- --------------------------------------------------------
 
@@ -282,10 +287,7 @@ CREATE TABLE `scr` (
 --
 
 INSERT INTO `scr` (`id`, `student_id`, `course_id`, `verified`, `created_at`, `updated_at`) VALUES
-(1, '6', '3', 1, '2024-03-01 19:43:36', '2024-03-01 19:47:24'),
-(2, '6', '2', 1, '2024-03-01 20:11:38', '2024-03-01 20:14:08'),
-(3, '8', '3', 1, '2024-03-01 20:24:38', '2024-03-01 20:25:25'),
-(4, '12', '3', 1, '2024-03-01 20:26:56', '2024-03-01 20:27:08');
+(8, '6', '3', 1, '2024-03-05 20:31:38', '2024-03-05 20:31:49');
 
 -- --------------------------------------------------------
 
@@ -342,7 +344,7 @@ INSERT INTO `users` (`id`, `otp`, `otp_expired_at`, `is_verified`, `name`, `emai
 (14, NULL, NULL, 1, 'Ahsan Mahmud', 'ahsan@gmail.com', '$2y$10$Y5AtlBUSqI/beIx9XnhkQuRhVfulhm04IAWrwSrWjwmWmT77PHDdq', 'student', NULL, 0, '2024-03-01 17:42:42', '2024-03-01 17:42:42'),
 (15, NULL, NULL, 1, 'Monisonkor Roy', 'monisonkor@gmail.com', '$2y$10$Ti96mhAm1xMXev/FEXaD0ul6LYjjaUUaQOQjrbsThNuX1fQfjFQta', 'student', NULL, 0, '2024-03-01 17:43:50', '2024-03-01 17:43:50'),
 (16, NULL, NULL, 1, 'Nusrat Jahan', 'nusrat@gmail.com', '$2y$10$mrKXAG7kFto4PzV1IwSboOIK2FbnZn0u1J.2hPOWeRjpDsHDU/NcG', 'student', NULL, 0, '2024-03-01 17:38:22', '2024-03-01 17:38:22'),
-(18, 9000, '2024-03-01 22:27:51', 1, 'sagor', 'grsagor08@gmail.com', '$2y$10$NPHlyyONEgXwGZrQnQblgOyUaD4FkzDTXhtiqI0MFLXI0i3aEFMUG', 'student', NULL, 0, '2024-03-01 22:06:05', '2024-03-01 22:26:50');
+(20, 1432, '2024-03-06 02:30:26', 1, 'Golam Rahman Sagor', 'grsagor08@gmail.com', '$2y$10$h8tNajKXN9LJ1Gr6RH0LPeeJ1joY.oHcYcor1qlRkpdPL3cbgIw3C', 'student', 'uploads/user-images/170969306065e7d884988a4abc-removebg-preview.png', 0, '2024-03-06 02:28:26', '2024-03-06 02:44:20');
 
 --
 -- Indexes for dumped tables
@@ -444,19 +446,19 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `all_posts`
 --
 ALTER TABLE `all_posts`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `assignments`
 --
 ALTER TABLE `assignments`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `assignment_submissions`
 --
 ALTER TABLE `assignment_submissions`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `comments`
@@ -468,7 +470,7 @@ ALTER TABLE `comments`
 -- AUTO_INCREMENT for table `courses`
 --
 ALTER TABLE `courses`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `migrations`
@@ -486,31 +488,31 @@ ALTER TABLE `personal_access_tokens`
 -- AUTO_INCREMENT for table `posts`
 --
 ALTER TABLE `posts`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `post_likes`
 --
 ALTER TABLE `post_likes`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `quizzes`
 --
 ALTER TABLE `quizzes`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `quiz_submissions`
 --
 ALTER TABLE `quiz_submissions`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `scr`
 --
 ALTER TABLE `scr`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `tcr`
@@ -522,7 +524,7 @@ ALTER TABLE `tcr`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
